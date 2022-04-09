@@ -1,4 +1,4 @@
-abc = document.querySelector("script[src*=utm\\@main]")
+abc = document.querySelector("script[src*=utm]")
 xyz = abc.getAttribute("target")
 console.log(abc)
 console.log(xyz)
