@@ -31,8 +31,19 @@ script.onload = () => {
 				var cFbc = getCookie("_fbc");
 				var cFbp = getCookie("_fbp");
 				var cTtp = getCookie("_ttp");
-
-		   function text(url) {
+	    
+	if (cCampaign == "" && cCampaign == null && cCampaign "null") {
+		var cSource = localStorage.getItem('muSource');
+		var cMedium = localStorage.getItem('muMedium');
+		var cCampaign = localStorage.getItem('muCampaign');
+		var cFirstCampaign = localStorage.getItem('muFirstCampaign');
+		var cTerm = localStorage.getItem('muContent');
+		var cCampaign = localStorage.getItem('muTerm');
+		var cID = localStorage.getItem('muID');
+		var cRef = localStorage.getItem('muRef'); }
+		
+		
+	   	function text(url) {
 		   return fetch(url).then(res => res.text()); }
 
 		 function convertToFloat(value) {
@@ -113,7 +124,8 @@ script.onload = () => {
     		      // console.log(response);
   		});
 
-		  sessionStorage.setItem("hasRunAxios", "1");
+		sessionStorage.setItem("hasRunAxios", "1");
+		localStorage.setItem("hasRunAxios", "1");
 		  }
 
              });
