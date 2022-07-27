@@ -67,11 +67,21 @@ document.cookie = "muFirstCampaign=" + utmFirstCampaign + ";" + expires + ";path
 sessionStorage.setItem("hasRunAxios", "0");
 localStorage.setItem("hasRunAxios", "0");
 
+const now = new Date();
+let days = new Array('Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu');
+let months = new Array('Januari','Februari','Mac','April','Mei','Jun','Julai','Ogos','September','Oktober','November','Disember');
+let date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
+function fourdigits(number) {
+return (number < 1000) ? number + 1900 : number; }
+today = days[now.getDay()] + ", " + date + " " + months[now.getMonth()] + " " + (fourdigits(now.getYear())) ;
+document.getElementById("tarikh").innerHTML = today;
+
 lejen = document.querySelector("script[src*=utm\\@main]")
 sasaran = lejen.getAttribute("sasaran")
+if (sasaran !== "" || sasaran !== null || sasaran !== "null") {
 var customDonationCurrentValue = Number(PageData.salesStats.total_amount_all);
 var customDonationTargetValue = parseFloat(sasaran);
 var customDonationPercentage = (customDonationCurrentValue / customDonationTargetValue) * 100;
 $("#custom-donation-current-value").html(customDonationCurrentValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
 $("#custom-donation-target-value").html(customDonationTargetValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
-$("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%");
+$("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%"); }
