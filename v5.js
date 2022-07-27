@@ -49,16 +49,24 @@ document.cookie = "muCampaign=" + utmCampaign + ";" + expires + ";path=/; secure
 document.cookie = "muContent=" + utmContent + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muTerm=" + utmTerm + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muID=" + utmID + ";" + expires + ";path=/; secure; domain=." + domainName;
-document.cookie = "muRef=" + utmRef + ";" + expires + ";path=/; secure; domain=." + domainName; }
+document.cookie = "muRef=" + utmRef + ";" + expires + ";path=/; secure; domain=." + domainName;
+localStorage.setItem('muSource', utmSource);
+localStorage.setItem('muMedium', utmMedium);
+localStorage.setItem('muCampaign', utmCampaign);
+localStorage.setItem('muContent', utmContent);
+localStorage.setItem('muTerm', utmTerm);
+localStorage.setItem('muID', utmID);
+localStorage.setItem('muRef', utmRef); }
 if (utmFirstCampaign !== null) {
 let cFirstCampaign = ('; '+document.cookie).split(`; muFirstCampaign=`).pop().split(';')[0];
 if (cFirstCampaign == "" || cFirstCampaign == null || cFirstCampaign == "null") {
+localStorage.setItem('muFirstCampaign', utmFirstCampaign);
 document.cookie = "muFirstCampaign=" + utmFirstCampaign + ";" + expires + ";path=/; secure; domain=." + domainName; }}
 sessionStorage.setItem("hasRunAxios", "0");
+localStorage.setItem("hasRunAxios", "0");
 
 lejen = document.querySelector("script[src*=utm\\@main]")
 sasaran = lejen.getAttribute("sasaran")
-
 var customDonationCurrentValue = Number(PageData.salesStats.total_amount_all);
 var customDonationTargetValue = parseFloat(sasaran);
 var customDonationPercentage = (customDonationCurrentValue / customDonationTargetValue) * 100;
