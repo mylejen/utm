@@ -32,7 +32,7 @@ script.onload = () => {
 				var cFbp = getCookie("_fbp");
 				var cTtp = getCookie("_ttp");
 	    
-	if (cCampaign == "" && cCampaign == null && cCampaign "null") {
+	if (cCampaign == "" || cCampaign == null || cCampaign "null") {
 		var cSource = localStorage.getItem('muSource');
 		var cMedium = localStorage.getItem('muMedium');
 		var cCampaign = localStorage.getItem('muCampaign');
