@@ -4,7 +4,7 @@ var domainName = separate.join('.');
 var utmparams = new URLSearchParams(window.location.search);
 let checkef2 = document.querySelector("label[for=extra_field_2]").textContent !== null;
 if (checkef2) { var textef2 = document.querySelector("label[for=extra_field_2]").textContent; }
-let checkef3 = document.querySelector("label[for=extra_field_3]").textContent; !== null;
+let checkef3 = document.querySelector("label[for=extra_field_3]").textContent !== null;
 if (checkef3) { var textef3 = document.querySelector("label[for=extra_field_3]").textContent; }
 
 let utm_campaign = utmparams.get("utm_campaign")
