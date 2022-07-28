@@ -2,9 +2,9 @@ document.documentElement.style.scrollBehavior = "smooth";
 var separate = window.location.hostname.split('.'); separate.shift();
 var domainName = separate.join('.');
 var utmparams = new URLSearchParams(window.location.search);
-let checkef2 = document.querySelector("label[for=extra_field_2]").textContent !== null;
+let checkef2 = document.querySelector("label[for=extra_field_2]") !== null;
 if (checkef2) { var textef2 = document.querySelector("label[for=extra_field_2]").textContent; }
-let checkef3 = document.querySelector("label[for=extra_field_3]").textContent !== null;
+let checkef3 = document.querySelector("label[for=extra_field_3]") !== null;
 if (checkef3) { var textef3 = document.querySelector("label[for=extra_field_3]").textContent; }
 
 let utm_campaign = utmparams.get("utm_campaign")
