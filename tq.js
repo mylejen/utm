@@ -50,7 +50,7 @@ script.onload = () => {
 
 		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
 		let myuseragent = navigator.userAgent;
-		fromUrl = document.querySelector("script[src*=utm\\@main]");
+		fromUrl = document.querySelector("script[src*=utm\\@latest]");
 		uid = fromUrl.getAttribute("uid")
 		email = fromUrl.getAttribute("email")
 		name = fromUrl.getAttribute("name")
