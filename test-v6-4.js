@@ -77,9 +77,10 @@ return (number < 1000) ? number + 1900 : number; }
 today = days[now.getDay()] + ", " + date + " " + months[now.getMonth()] + " " + (fourdigits(now.getYear())) ;
 document.getElementById("tarikh").innerHTML = today; }
 
-lejen = document.querySelector("script[src*=utm\\@main]")
-sasaran = lejen.getAttribute("sasaran")
-if (sasaran !== "" || sasaran !== null || sasaran !== "null") {
+let lejen = document.querySelector("script[src*=utm\\@latest]")
+let sasaran = lejen.getAttribute("sasaran")
+let checklejen = sasaran !== null;
+if (checklejen) {
 var customDonationCurrentValue = Number(PageData.salesStats.total_amount_all);
 var customDonationTargetValue = parseFloat(sasaran);
 var customDonationPercentage = (customDonationCurrentValue / customDonationTargetValue) * 100;
