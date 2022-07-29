@@ -27,8 +27,8 @@ script.onload = () => {
 		var cMedium = localStorage.getItem('muMedium');
 		var cCampaign = localStorage.getItem('muCampaign');
 		var cFirstCampaign = localStorage.getItem('muFirstCampaign');
-		var cTerm = localStorage.getItem('muContent');
-		var cCampaign = localStorage.getItem('muTerm');
+		var cContent = localStorage.getItem('muContent');
+		var cTerm = localStorage.getItem('muTerm');
 		var cID = localStorage.getItem('muID');
 		var cRef = localStorage.getItem('muRef');
 	   
