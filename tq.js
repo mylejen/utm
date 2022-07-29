@@ -19,20 +19,10 @@ script.onload = () => {
     		for(var i = 0; i < cookieArr.length; i++) {
         		var cookiePair = cookieArr[i].split("=");
         		if(name == cookiePair[0].trim()) {
-            	return decodeURIComponent(cookiePair[1]); } } return null; }
-				var cSource = getCookie("muSource");
-				var cMedium = getCookie("muMedium");
-				var cCampaign = getCookie("muCampaign");
-				var cFirstCampaign = getCookie("muFirstCampaign");
-				var cContent = getCookie("muContent");
-				var cTerm = getCookie("muTerm");
-				var cID = getCookie("muID");
-				var cRef = getCookie("muRef");
-				var cFbc = getCookie("_fbc");
-				var cFbp = getCookie("_fbp");
-				var cTtp = getCookie("_ttp");
+            	return decodeURIComponent(cookiePair[1]); } } 
+		    return null;
+	    	}
 	    
-	if (cCampaign == "" || cCampaign == null || cCampaign == "null") {
 		var cSource = localStorage.getItem('muSource');
 		var cMedium = localStorage.getItem('muMedium');
 		var cCampaign = localStorage.getItem('muCampaign');
@@ -40,13 +30,24 @@ script.onload = () => {
 		var cTerm = localStorage.getItem('muContent');
 		var cCampaign = localStorage.getItem('muTerm');
 		var cID = localStorage.getItem('muID');
-		var cRef = localStorage.getItem('muRef'); }
+		var cRef = localStorage.getItem('muRef');
+	   
+	    	    if (cSource == "" || cSource == null || cSource == "null") {
+				var cSource = getCookie("muSource");
+				var cMedium = getCookie("muMedium");
+				var cCampaign = getCookie("muCampaign");
+				var cFirstCampaign = getCookie("muFirstCampaign");
+				var cContent = getCookie("muContent");
+				var cTerm = getCookie("muTerm");
+				var cID = getCookie("muID");
+				var cRef = getCookie("muRef"); }
+			    
+				var cFbc = getCookie("_fbc");
+				var cFbp = getCookie("_fbp");
+				var cTtp = getCookie("_ttp");
 		
-	   	function text(url) {
-		   return fetch(url).then(res => res.text()); }
-
-		 function convertToFloat(value) {
-			  return parseFloat(value.replace(",", "")); }
+	   	function text(url) { return fetch(url).then(res => res.text()); }
+		function convertToFloat(value) { return parseFloat(value.replace(",", "")); }
 
 		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
 		let myuseragent = navigator.userAgent;
