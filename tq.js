@@ -4,9 +4,9 @@ var script = document.createElement("script");
     document.head.appendChild(script);
 
 var dbjs = document.createElement("script");
-    dbjs.type = "text/javascript";
-    dbjs.src = "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js";
-    document.head.appendChild(dbjs);
+    dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
+    dbjs.setAttribute("type", "text/javascript");
+    document.body.appendChild(dbjs);
 
 document.documentElement.style.scrollBehavior = "smooth";
 
@@ -20,6 +20,7 @@ script.onload = () => {
     }
 
     function initMuTrack() {
+
 	    function getCookie(name) {
     		var cookieArr = document.cookie.split(";");
     		for(var i = 0; i < cookieArr.length; i++) {
@@ -31,24 +32,32 @@ script.onload = () => {
 	    
 		var cSource = localStorage.getItem('muSource');
 		var cMedium = localStorage.getItem('muMedium');
+
 		var cCampaign = localStorage.getItem('muCampaign');
 		var cFirstCampaign = localStorage.getItem('muFirstCampaign');
+
 		var cContent = localStorage.getItem('muContent');
 		var cTerm = localStorage.getItem('muTerm');
+
 		var cID = localStorage.getItem('muID');
 		// var cRef = localStorage.getItem('muRef');
 	    	var cRef = "local";
 	   
 	    	    if (cSource == "" || cSource == null || cSource == "null") {
+
 				var cSource = getCookie("muSource");
 				var cMedium = getCookie("muMedium");
+
 				var cCampaign = getCookie("muCampaign");
 				var cFirstCampaign = getCookie("muFirstCampaign");
+
 				var cContent = getCookie("muContent");
 				var cTerm = getCookie("muTerm");
+
 				var cID = getCookie("muID");
 				// var cRef = getCookie("muRef");
 			    	var cRef = "cookies";
+
 		    		}
 			    
 				var cFbc = getCookie("_fbc");
@@ -60,7 +69,24 @@ script.onload = () => {
 
 		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
 		let myuseragent = navigator.userAgent;
-		fromUrl = document.querySelector("script[src*=utm\\@latest]");
+		unixTimestamp = Math.floor(Date.now() / 1000)
+
+		if (uid == null) {
+
+		uid = "Tiada Uid"
+		email = "Tiada Emel"
+		name = "Tiada Nama"
+		phone = "Tiada Telefon"
+		invoice = "Tiada Nombor Invois"
+		total = "Tiada Total"
+		proid = "Tiada Produk Id"
+		proname = "Tiada Nama Produk"
+		proprice = "Tiada Harga Produk"
+		proqty = "Tiada Qty Produk"
+
+		}
+
+		/* fromUrl = document.querySelector('script[src*="utm"]');
 		uid = fromUrl.getAttribute("uid")
 		email = fromUrl.getAttribute("email")
 		name = fromUrl.getAttribute("name")
@@ -75,23 +101,12 @@ script.onload = () => {
 		bproprice = fromUrl.getAttribute("proprice")
 		proprice = convertToFloat(bproprice)
 		proqty = fromUrl.getAttribute("proqty")
-		// user = fromUrl.getAttribute("user")
-	    
-	    	// lejenuser = fromUrl.getAttribute("user")
-	    
-		/* oid = fromUrl.getAttribute("oid")
+		lejentoken = fromUrl.getAttribute("token")
+		oid = fromUrl.getAttribute("oid")
 		pid = fromUrl.getAttribute("pid")
 		actid = fromUrl.getAttribute("actid")
-		audid = fromUrl.getAttribute("audid") */
-	    
-		// var pabblyid = fromUrl.getAttribute("hookid")
-		unixTimestamp = Math.floor(Date.now() / 1000)
-	    
-	console.log("oid 2 "+ offlineeventid)
-	console.log("pid 2 "+ metapixelid)
-	console.log("act 2 "+ adaccountid)
-	console.log("aid 2 "+ audienceid)
-	console.log("lejenuser 2 "+ lejenuser)
+		audid = fromUrl.getAttribute("audid")
+	        pabblyid = fromUrl.getAttribute("hookid") */
 
 	if (disahkan == 1) {
 		   text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
@@ -100,6 +115,7 @@ script.onload = () => {
 
 	var hasRunAxios = sessionStorage.getItem("hasRunAxios");
 	var numAxios = Number(localStorage.getItem('numAxios'));
+
 		  if (hasRunAxios !== "1") {
 		    numAxios = numAxios + 1;
 		    localStorage.setItem('numAxios', numAxios.toString());
@@ -117,7 +133,7 @@ script.onload = () => {
 	    productname: proname,
 	    productprice: proprice,
 	    productquantity: proqty,
-	    user: lejenuser,
+	    user: lejentoken,
 	    offlineeventid: offlineeventid,
 	    metapixelid: metapixelid,
 	    adaccountid: adaccountid,
@@ -153,4 +169,4 @@ script.onload = () => {
     }
 };
 
-// 1 August 2022
+// 2 Aug 2022
