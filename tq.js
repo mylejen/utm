@@ -1,7 +1,13 @@
 var script = document.createElement("script");
-script.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
-script.setAttribute("type", "text/javascript");
-document.head.appendChild(script);
+    script.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
+    script.setAttribute("type", "text/javascript");
+    document.head.appendChild(script);
+
+var dbjs = document.createElement("script");
+    dbjs.type = "text/javascript";
+    dbjs.src = "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js";
+    document.head.appendChild(dbjs);
+
 document.documentElement.style.scrollBehavior = "smooth";
 
 script.onload = () => {
@@ -71,16 +77,7 @@ script.onload = () => {
 		proqty = fromUrl.getAttribute("proqty")
 		// user = fromUrl.getAttribute("user")
 	    
-	    	lejenuser = fromUrl.getAttribute("user")
-	    
-	    function includeJs(jsFilePath) {
-		var dbjs = document.createElement("script");
-    		dbjs.type = "text/javascript";
-    		dbjs.src = jsFilePath;
-    		document.head.appendChild(dbjs);
-		}
-	    
-		includeJs("https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
+	    	// lejenuser = fromUrl.getAttribute("user")
 	    
 		/* oid = fromUrl.getAttribute("oid")
 		pid = fromUrl.getAttribute("pid")
@@ -94,6 +91,7 @@ script.onload = () => {
 	console.log("pid 2 "+ metapixelid)
 	console.log("act 2 "+ adaccountid)
 	console.log("aid 2 "+ audienceid)
+	console.log("lejenuser 2 "+ lejenuser)
 
 	if (disahkan == 1) {
 		   text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
