@@ -1,4 +1,6 @@
-var pabblyid = "IjQ2NzU2MCI_3D"
+var pabblyid = "IjQ2NzU2MCI_3D";
+var lejenUrl = document.querySelector("script[src*=utm\\@latest]");
+var lejenuser = lejenUrl.getAttribute("user");
 
 if (lejenuser == "MSP") {
 
