@@ -11,7 +11,11 @@ let utm_campaign = utmparams.get("utm_campaign")
 let utm_source = utmparams.get("utm_source")
 let utmSource = utmparams.get(encodeURIComponent("utm_source"));
 let utmMedium = utmparams.get(encodeURIComponent("utm_medium"));
-let utmCampaign = utmparams.get(encodeURIComponent("utm_campaign"));
+// let utmCampaign = utmparams.get(encodeURIComponent("utm_campaign"));
+
+let utmCampaign1 = utmparams.get("utm_campaign")
+let utmCampaign = encodeURIComponent(utmCampaign1);
+
 let utmContent = utmparams.get(encodeURIComponent("utm_content"));
 let utmTerm = utmparams.get(encodeURIComponent("utm_term"));
 let utmID = utmparams.get(encodeURIComponent("utm_id"));
@@ -20,6 +24,7 @@ let utmFirstCampaign = utmparams.get(encodeURIComponent("utm_campaign"));
 
 if (utmparams.get("utm_campaign")){
 sessionStorage.setItem('utm_campaign', utmparams.get("utm_campaign"))};
+
 if (utmparams.get("utm_source")){
 sessionStorage.setItem('utm_source', utmparams.get("utm_source"))};
 utm_campaign = sessionStorage.utm_campaign
@@ -59,11 +64,13 @@ localStorage.setItem('muContent', utmContent);
 localStorage.setItem('muTerm', utmTerm);
 localStorage.setItem('muID', utmID);
 localStorage.setItem('muRef', utmRef); }
+
 if (utmFirstCampaign !== null) {
 let cFirstCampaign = ('; '+document.cookie).split(`; muFirstCampaign=`).pop().split(';')[0];
 if (cFirstCampaign == "" || cFirstCampaign == null || cFirstCampaign == "null") {
 localStorage.setItem('muFirstCampaign', utmFirstCampaign);
 document.cookie = "muFirstCampaign=" + utmFirstCampaign + ";" + expires + ";path=/; secure; domain=." + domainName; }}
+
 sessionStorage.setItem("hasRunAxios", "0");
 localStorage.setItem("hasRunAxios", "0");
 
