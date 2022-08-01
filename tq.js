@@ -43,7 +43,6 @@ script.onload = () => {
 				var cID = getCookie("muID");
 				// var cRef = getCookie("muRef");
 			    	var cRef = "cookies";
-		    		
 		    		}
 			    
 				var cFbc = getCookie("_fbc");
@@ -70,13 +69,31 @@ script.onload = () => {
 		bproprice = fromUrl.getAttribute("proprice")
 		proprice = convertToFloat(bproprice)
 		proqty = fromUrl.getAttribute("proqty")
-		user = fromUrl.getAttribute("user")
-		oid = fromUrl.getAttribute("oid")
+		// user = fromUrl.getAttribute("user")
+	    
+	    	lejenuser = fromUrl.getAttribute("user")
+	    
+	    function includeJs(jsFilePath) {
+		var dbjs = document.createElement("script");
+    		dbjs.type = "text/javascript";
+    		dbjs.src = jsFilePath;
+    		document.head.appendChild(dbjs);
+		}
+	    
+		includeJs("https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
+	    
+		/* oid = fromUrl.getAttribute("oid")
 		pid = fromUrl.getAttribute("pid")
 		actid = fromUrl.getAttribute("actid")
-		audid = fromUrl.getAttribute("audid")
-		var pabblyid = fromUrl.getAttribute("hookid")
-		var unixTimestamp = Math.floor(Date.now() / 1000)
+		audid = fromUrl.getAttribute("audid") */
+	    
+		// var pabblyid = fromUrl.getAttribute("hookid")
+		unixTimestamp = Math.floor(Date.now() / 1000)
+	    
+	console.log("oid 2 "+ offlineeventid)
+	console.log("pid 2 "+ metapixelid)
+	console.log("act 2 "+ adaccountid)
+	console.log("aid 2 "+ audienceid)
 
 	if (disahkan == 1) {
 		   text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
@@ -102,11 +119,11 @@ script.onload = () => {
 	    productname: proname,
 	    productprice: proprice,
 	    productquantity: proqty,
-	    user: user,
-	    offlineeventid: oid,
-	    metapixelid: pid,
-	    adaccountid: actid,
-	    audienceid: audid,
+	    user: lejenuser,
+	    offlineeventid: offlineeventid,
+	    metapixelid: metapixelid,
+	    adaccountid: adaccountid,
+	    audienceid: audienceid,
 	    url: currenturl,
 	    timestamp: unixTimestamp,
 	    ipaddress: myipaddress,
