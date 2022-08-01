@@ -1,6 +1,6 @@
 var pabblyid = "IjQ2NzU2MCI_3D";
 
-var checklejentoken = document.querySelector('script[src*="utm"]').getAttribute("token") !== nulll;
+var checklejentoken = document.querySelector('script[src*="utm"]').getAttribute("token") !== null;
 
 if (checklejentoken) {
 
