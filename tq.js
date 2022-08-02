@@ -71,7 +71,7 @@ script.onload = () => {
 		let myuseragent = navigator.userAgent;
 		unixTimestamp = Math.floor(Date.now() / 1000)
 
-		if (uid == null) {
+		/* if (uid == null) {
 
 		uid = "Tiada Uid"
 		email = "Tiada Emel"
@@ -86,7 +86,7 @@ script.onload = () => {
 
 		}
 
-		/* fromUrl = document.querySelector('script[src*="utm"]');
+		fromUrl = document.querySelector('script[src*="utm"]');
 		uid = fromUrl.getAttribute("uid")
 		email = fromUrl.getAttribute("email")
 		name = fromUrl.getAttribute("name")
