@@ -1,4 +1,4 @@
-var pabblyid = "IjQ2NzU2MCI_3D";
+// var pabblyid = "IjQ2NzU2MCI_3D";
 
 var checklejentoken = document.querySelector('script[src*="utm"]').getAttribute("token") !== null;
 
@@ -9,76 +9,87 @@ var lejentoken = lejenUrl.getAttribute("token");
 
 if (lejentoken == "MSP") {
 
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "450239113467284"
 var adaccountid = "873510686873021"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "RASU") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1153006248792874"
 var adaccountid = "538732970905881"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "MSU") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1153006248792874"
 var adaccountid = "945586025999480"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "SAA") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1017884859110419"
 var adaccountid = "252529159874390"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "STGR") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "504944684467502"
 var adaccountid = "1129052037502528"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "STI") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1132233167510868"
 var adaccountid = "4251575611624304"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "ATIQ") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1204906233585404"
 var adaccountid = "1262614124207592"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "MATAN") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "1881191202066799"
 var metapixelid = "1158541354947075"
 var adaccountid = "384950446481261"
 var audienceid = "23850985273040614"
 
 } else if (lejentoken == "MBP") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "310573237377737"
 var metapixelid = "450239113467284"
 var adaccountid = "204846164628866"
 var audienceid = "23851186042330374"
 
 } else if (lejentoken == "MFK") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "310573237377737"
 var metapixelid = "450239113467284"
 var adaccountid = "658756635114612"
 var audienceid = "23851249571790488"
 
 } else if (lejentoken == "SJH") {
-
+  
+var pabblyid = "IjQ2NzU2MCI_3D"
 var offlineeventid = "310573237377737"
 var metapixelid = "450239113467284"
 var adaccountid = "609732153395186"
@@ -168,12 +179,33 @@ var metapixelid = "287012550230993"
 var adaccountid = "297780272526518"
 var audienceid = "23850985273040614"
 
-} else if (lejentoken == "WADAH") {
+} else if (lejentoken == "MACB") {
 
-var offlineeventid = "1881191202066799"
-var metapixelid = "287012550230993"
-var adaccountid = "297780272526518"
-var audienceid = "23850985273040614"
+var offlineeventid = "310573237377737"
+var metapixelid = "450239113467284"
+var adaccountid = "931674137501762"
+var audienceid = "23851186042330374"
+
+} else if (lejentoken == "PNAB") {
+
+var offlineeventid = "310573237377737"
+var metapixelid = "450239113467284"
+var adaccountid = "1028554644447003"
+var audienceid = "23851186042330374"
+
+} else if (lejentoken == "KECHIL") {
+
+var offlineeventid = "310573237377737"
+var metapixelid = "450239113467284"
+var adaccountid = "297073905875497"
+var audienceid = "23851186042330374"
+
+} else if (lejentoken == "MUSTA") {
+
+var offlineeventid = "310573237377737"
+var metapixelid = "450239113467284"
+var adaccountid = "356154553104881"
+var audienceid = "23851186042330374"
 
 } else {
   
