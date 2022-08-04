@@ -107,6 +107,12 @@ script.onload = () => {
 		actid = fromUrl.getAttribute("actid")
 		audid = fromUrl.getAttribute("audid")
 	        pabblyid = fromUrl.getAttribute("hookid") */
+	    
+	    btotal = total
+	    ftotal = convertToFloat(btotal)
+	    
+	    bproprice = proprice
+	    fproprice = convertToFloat(bproprice)
 
 	if (disahkan == 1) {
 		   text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
@@ -128,10 +134,10 @@ script.onload = () => {
 	    phone: phone,
 	    status: disahkan,
 	    invoice: invoice,
-	    total: total,
+	    total: ftotal,
 	    productid: proid,
 	    productname: proname,
-	    productprice: proprice,
+	    productprice: fproprice,
 	    productquantity: proqty,
 	    user: lejentoken,
 	    offlineeventid: offlineeventid,
