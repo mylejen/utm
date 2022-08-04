@@ -100,6 +100,18 @@ let cFirstCampaign = ('; '+document.cookie).split(`; muFirstCampaign=`).pop().sp
 sessionStorage.setItem("hasRunAxios", "0");
 localStorage.setItem("hasRunAxios", "0");
 
+function text(url) { return fetch(url).then(res => res.text()); }
+
+text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
+let ipRegex = /([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/
+let myipaddress = data.match(ipRegex)[0];
+let currenturl = window.location.protocol + "//" + window.location.host
+
+if (myipaddress == "183.171.27.151") {
+alert('Sorry, contact admin to access');
+window.location = currenturl; }
+});
+
 let checktarikh = document.getElementById("tarikh") !== null;
 if (checktarikh) {
 const now = new Date();
