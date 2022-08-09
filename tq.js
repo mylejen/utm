@@ -40,6 +40,9 @@ script.onload = () => {
 		var cTerm = localStorage.getItem('muTerm');
 
 		var cID = localStorage.getItem('muID');
+	    	var cPlacement = localStorage.getItem('muPlacement');
+	    	var cCID = localStorage.getItem('muCID');
+	    
 		// var cRef = localStorage.getItem('muRef');
 	    	var cRef = "local";
 	   
@@ -55,6 +58,9 @@ script.onload = () => {
 				var cTerm = getCookie("muTerm");
 
 				var cID = getCookie("muID");
+			    	var cPlacement = getCookie("muPlacement");
+			    	var cCID = getCookie("muCID");
+			    
 				// var cRef = getCookie("muRef");
 			    	var cRef = "cookies";
 
@@ -160,6 +166,8 @@ script.onload = () => {
 	    fbc: cFbc,
 	    fbp: cFbp,
 	    ttp: cTtp,
+	    utmplacement: cPlacement,
+	    utmcid: cCID,
         })
 		    .then(function (response) {
     		      // console.log(response);
@@ -175,4 +183,4 @@ script.onload = () => {
     }
 };
 
-// 5 Aug 2022
+// 10 Aug 2022
