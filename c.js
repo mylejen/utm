@@ -122,6 +122,12 @@ alert('Sorry, contact admin to access');
 window.location = currenturl; }
 });
 
+let checkbuttonscroll = document.getElementById("buttonscroll") !== null;
+if (checkbuttonscroll) {
+let hrefscroll = document.getElementById("buttonscroll").hash;
+document.getElementById("buttonscroll").href = window.location.href.split("#")[0] + hrefscroll;
+}
+
 let checktarikh = document.getElementById("tarikh") !== null;
 if (checktarikh) {
 const now = new Date();
