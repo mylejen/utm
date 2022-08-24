@@ -122,6 +122,15 @@ alert('Sorry, contact admin to access');
 window.location = currenturl; }
 });
 
+let checkbuttonclassname = document.getElementsByClassName("buttonscroll") !== null;
+if (checkbuttonclassname) {
+	let buttonClassName = document.getElementsByClassName("buttonscroll");
+	for(var index=0; index < buttonClassName.length; index++){
+		let hrefbuttonscroll = buttonClassName[index].hash;
+		buttonClassName[index].href = window.location.href.split("#")[0] + hrefbuttonscroll;
+	}
+}
+
 let checkbuttonscroll = document.getElementById("buttonscroll") !== null;
 if (checkbuttonscroll) {
 let hrefscroll = document.getElementById("buttonscroll").hash;
