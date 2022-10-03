@@ -117,7 +117,7 @@ let ipRegex = /([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/
 let myipaddress = data.match(ipRegex)[0];
 let currenturl = window.location.protocol + "//" + window.location.host
 
-if (myipaddress == "183.171.27.151") {
+if (myipaddress == "183.171.27.151" || myipaddress == "183.171.16.18") {
 alert('Sorry, contact admin to access');
 window.location = currenturl; }
 });
