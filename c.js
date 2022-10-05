@@ -13,6 +13,7 @@ if (checkef3) { var textef3 = document.querySelector("label[for=extra_field_3]")
 
 let utm_campaign = utmparams.get("utm_campaign")
 let utm_source = utmparams.get("utm_source")
+let utm_ref = utmparams.get("ref")
 
 let localutmSource = utmparams.get("utm_source")
 let utmSource = encodeURIComponent(localutmSource);
@@ -50,8 +51,12 @@ sessionStorage.setItem('utm_campaign', utmparams.get("utm_campaign")) };
 if (utmparams.get("utm_source")){
 sessionStorage.setItem('utm_source', utmparams.get("utm_source")) };
 
+if (utmparams.get("ref")){
+sessionStorage.setItem('utm_ref', utmparams.get("ref")) };
+
 utm_campaign = sessionStorage.utm_campaign
 utm_source = sessionStorage.utm_source
+utm_ref = sessionStorage.utm_ref
 
 if (textef2 == "Source") {
 document.querySelector("label[for=extra_field_2]").style.display = "none";
@@ -65,6 +70,8 @@ document.querySelector("label[for=extra_field_3]").style.display = "none";
 document.querySelector("input[id=extra_field_3]").style.display = "none";
 let field3 = document.getElementById("extra_field_3")
 field3.value = utm_campaign
+if (utm_campaign == null || utm_campaign == "undefined" && utm_ref !== null) {
+field3.value = utm_ref }	
 }
 
 const d = new Date();
