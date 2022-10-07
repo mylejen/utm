@@ -1,8 +1,3 @@
-var script = document.createElement("script");
-    script.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
-    script.setAttribute("type", "text/javascript");
-    document.head.appendChild(script);
-
 var dbjs = document.createElement("script");
     dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
     dbjs.setAttribute("type", "text/javascript");
@@ -10,7 +5,7 @@ var dbjs = document.createElement("script");
 
 document.documentElement.style.scrollBehavior = "smooth";
 
-script.onload = () => {
+dbjs.onload = () => {
     if (document.readyState !== "loading") {
         initMuTrack();
     } else {
@@ -76,43 +71,6 @@ script.onload = () => {
 		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
 		let myuseragent = navigator.userAgent;
 		unixTimestamp = Math.floor(Date.now() / 1000)
-
-		/* if (uid == null) {
-
-		uid = "Tiada Uid"
-		email = "Tiada Emel"
-		name = "Tiada Nama"
-		phone = "Tiada Telefon"
-		invoice = "Tiada Nombor Invois"
-		total = "Tiada Total"
-		proid = "Tiada Produk Id"
-		proname = "Tiada Nama Produk"
-		proprice = "Tiada Harga Produk"
-		proqty = "Tiada Qty Produk"
-
-		}
-
-		fromUrl = document.querySelector('script[src*="utm"]');
-		uid = fromUrl.getAttribute("uid")
-		email = fromUrl.getAttribute("email")
-		name = fromUrl.getAttribute("name")
-		phone = fromUrl.getAttribute("phone")
-		menunggu = fromUrl.getAttribute("menunggu")
-		disahkan = fromUrl.getAttribute("disahkan")
-		invoice = fromUrl.getAttribute("invoice")
-		btotal = fromUrl.getAttribute("total")
-		total = convertToFloat(btotal)
-		proid = fromUrl.getAttribute("proid")
-		proname = fromUrl.getAttribute("proname")
-		bproprice = fromUrl.getAttribute("proprice")
-		proprice = convertToFloat(bproprice)
-		proqty = fromUrl.getAttribute("proqty")
-		lejentoken = fromUrl.getAttribute("token")
-		oid = fromUrl.getAttribute("oid")
-		pid = fromUrl.getAttribute("pid")
-		actid = fromUrl.getAttribute("actid")
-		audid = fromUrl.getAttribute("audid")
-	        pabblyid = fromUrl.getAttribute("hookid") */
 	    
 	    btotal = total
 	    ftotal = convertToFloat(btotal)
@@ -133,7 +91,10 @@ script.onload = () => {
 		    localStorage.setItem('numAxios', numAxios.toString());
 		    var numAxios = Number(localStorage.getItem('numAxios'));
 
-   axios.post('https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
 	    uid: uid,
 	    email: email,
 	    name: name,
@@ -167,12 +128,12 @@ script.onload = () => {
 	    fbp: cFbp,
 	    ttp: cTtp,
 	    utmplacement: cPlacement,
-	    utmcid: cCID,
-        })
-		    .then(function (response) {
-    		      // console.log(response);
-  		});
-
+	    utmcid: cCID
+   }));
+    xhr.onload = function() {
+     var data = JSON.parse(this.responseText);
+      console.log(data);
+    };
 		sessionStorage.setItem("hasRunAxios", "1");
 		localStorage.setItem("hasRunAxios", "1");
 		  }
@@ -183,4 +144,4 @@ script.onload = () => {
     }
 };
 
-// 10 Aug 2022
+// 07 Okt 2022
