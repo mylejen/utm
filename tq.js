@@ -1,9 +1,9 @@
-var dbjs = document.createElement("script");
+document.documentElement.style.scrollBehavior = "smooth";
+
+/* var dbjs = document.createElement("script");
     dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
     dbjs.setAttribute("type", "text/javascript");
     document.body.appendChild(dbjs);
-
-document.documentElement.style.scrollBehavior = "smooth";
 
 dbjs.onload = () => {
     if (document.readyState !== "loading") {
@@ -13,6 +13,8 @@ dbjs.onload = () => {
             initMuTrack();
         });
     }
+*/
+        initMuTrack();
 
     function initMuTrack() {
 
@@ -107,10 +109,10 @@ dbjs.onload = () => {
 	    productprice: fproprice,
 	    productquantity: proqty,
 	    user: lejentoken,
-	    offlineeventid: offlineeventid,
-	    metapixelid: metapixelid,
-	    adaccountid: adaccountid,
-	    audienceid: audienceid,
+	    // offlineeventid: offlineeventid,
+	    // metapixelid: metapixelid,
+	    // adaccountid: adaccountid,
+	    // audienceid: audienceid,
 	    url: currenturl,
 	    timestamp: unixTimestamp,
 	    ipaddress: myipaddress,
