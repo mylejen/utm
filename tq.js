@@ -93,6 +93,20 @@ dbjs.onload = () => {
 		    localStorage.setItem('numAxios', numAxios.toString());
 		    var numAxios = Number(localStorage.getItem('numAxios'));
 
+	var checklejentoken = document.querySelector('script[src*="utm"]').getAttribute("token") !== null;
+			  
+			  if (checklejentoken) {
+				  var lejenUrl = document.querySelector('script[src*="utm"]');
+				  var lejentoken = lejenUrl.getAttribute("token");
+
+if (lejentoken == "MSP" || lejentoken == "RASU" || lejentoken == "MSU" || lejentoken == "SAA" || lejentoken == "STGR" || lejentoken == "STI" || lejentoken == "ATIQ" || lejentoken == "MATAN" || lejentoken == "MBP" || lejentoken == "MFK" || lejentoken == "SJH" || lejentoken == "MAM" || lejentoken == "MPJ" || lejentoken == "PUSU" || lejentoken == "MAJ" || lejentoken == "MPK" || lejentoken == "MUQA" || lejentoken == "MTC" || lejentoken == "YEZP" || lejentoken == "ADDIN16" || lejentoken == "ADDINMN" || lejentoken == "PEMATAP" || lejentoken == "WADAH" || lejentoken == "MACB" || lejentoken == "PNAB" || lejentoken == "KECHIL" || lejentoken == "MUSTA" || lejentoken == "MKCE") {
+	
+	var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc"
+	
+	}  else { var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc" }
+			  
+			  }
+
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
@@ -146,4 +160,4 @@ dbjs.onload = () => {
     }
 };
 
-// 07 Okt 2022
+// 21 Okt 2022
