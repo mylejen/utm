@@ -11,3 +11,4 @@ searchParams.append("whatsapp_link_code", linkcode);
 currentURL.search = searchParams;
 window.location.href = currentURL.toString();
 }
+}
