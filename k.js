@@ -202,14 +202,14 @@ if (window.location.href.indexOf("payment_completion") > -1) {
 
 		
 	   	function text(url) { return fetch(url).then(res => res.text()); }
-		function convertToFloat(value) { return parseFloat(value.replace(",", "")); }
+		// function convertToFloat(value) { return parseFloat(value.replace(",", "")); }
 
 		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
 		let myuseragent = navigator.userAgent;
 		unixTimestamp = Math.floor(Date.now() / 1000)
 	    
-	    btotal = transactionTotal
-	    ftotal = convertToFloat(btotal)
+	    // btotal = transactionTotal
+	    // ftotal = convertToFloat(btotal)
 	    
 
 	if (status == true) {
@@ -234,7 +234,7 @@ if (window.location.href.indexOf("payment_completion") > -1) {
 	    status: status,
 	    contentname: content_name,
 	    transactionId: transactionId,
-	    total: ftotal,
+	    total: transactionTotal,
 	    transactionAffiliation: transactionAffiliation,
 	    orderid: kb_orderid,
 	    email: kb_email,
