@@ -125,3 +125,154 @@ document.getElementById("tarikh").innerHTML = today;
 }
   
 }
+
+// FOR COMPLETE PAYMENT
+
+if (window.location.href.indexOf("payment_completion") > -1) {
+
+    initMuTrack();
+
+    function initMuTrack() {
+
+	    function getCookie(name) {
+    		var cookieArr = document.cookie.split(";");
+    		for(var i = 0; i < cookieArr.length; i++) {
+        		var cookiePair = cookieArr[i].split("=");
+        		if(name == cookiePair[0].trim()) {
+            	return decodeURIComponent(cookiePair[1]); } } 
+		    return null;
+	    	}
+	    
+		var cSource = localStorage.getItem('muSource');
+		var cMedium = localStorage.getItem('muMedium');
+
+		var cCampaign = localStorage.getItem('muCampaign');
+		var cFirstCampaign = localStorage.getItem('muFirstCampaign');
+
+		var cContent = localStorage.getItem('muContent');
+		var cTerm = localStorage.getItem('muTerm');
+
+		var cID = localStorage.getItem('muID');
+	    	var cPlacement = localStorage.getItem('muPlacement');
+	    	var cCID = localStorage.getItem('muCID');
+	    
+		// var cRef = localStorage.getItem('muRef');
+	    	var cRef = "local";
+	   
+	    	    if (cSource == "" || cSource == null || cSource == "null") {
+
+				var cSource = getCookie("muSource");
+				var cMedium = getCookie("muMedium");
+
+				var cCampaign = getCookie("muCampaign");
+				var cFirstCampaign = getCookie("muFirstCampaign");
+
+				var cContent = getCookie("muContent");
+				var cTerm = getCookie("muTerm");
+
+				var cID = getCookie("muID");
+			    	var cPlacement = getCookie("muPlacement");
+			    	var cCID = getCookie("muCID");
+			    
+				// var cRef = getCookie("muRef");
+			    	var cRef = "cookies";
+
+		    		}
+			    
+				var cFbc = getCookie("_fbc");
+				var cFbp = getCookie("_fbp");
+				var cTtp = getCookie("_ttp");
+	    
+				var kb_email = localStorage.getItem('W_EML');
+				var kb_name = localStorage.getItem('W_UN');
+	    
+	    var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
+	    var kb_orderid = searchParams.get("order_id");
+	    
+	    for (var i = 0; i < window.dataLayer.length; i++) {
+		    if (window.dataLayer[i].status !== undefined) {
+			    var status = window.dataLayer[i].status;
+			    var content_name = window.dataLayer[i].content_name;
+			    var transactionId = window.dataLayer[i].transactionId;
+			    var transactionTotal = window.dataLayer[i].transactionTotal;
+			    var transactionAffiliation = window.dataLayer[i].transactionAffiliation;
+			    break;
+		    }
+	    }
+
+		
+	   	function text(url) { return fetch(url).then(res => res.text()); }
+		function convertToFloat(value) { return parseFloat(value.replace(",", "")); }
+
+		var currenturl = window.location.protocol + "//" + window.location.host + window.location.pathname
+		let myuseragent = navigator.userAgent;
+		unixTimestamp = Math.floor(Date.now() / 1000)
+	    
+	    btotal = transactionTotal
+	    ftotal = convertToFloat(btotal)
+	    
+
+	if (status == true) {
+		   text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
+		     let ipRegex = /([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/
+		     let myipaddress = data.match(ipRegex)[0];
+
+	var hasRunAxios = sessionStorage.getItem("hasRunAxios");
+	var numAxios = Number(localStorage.getItem('numAxios'));
+
+		  if (hasRunAxios !== "1") {
+		    numAxios = numAxios + 1;
+		    localStorage.setItem('numAxios', numAxios.toString());
+		    var numAxios = Number(localStorage.getItem('numAxios'));
+
+	 var pabblyid = "IjU3NjMwNTZlMDYzNzA0MzU1MjZkNTUzMiI_3D_pc"
+	 
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+	    status: status,
+	    contentname: content_name,
+	    transactionId: transactionId,
+	    total: ftotal,
+	    transactionAffiliation: transactionAffiliation,
+	    orderid: kb_orderid,
+	    email: kb_email,
+	    name: kb_name,
+	    url: currenturl,
+	    timestamp: unixTimestamp,
+	    ipaddress: myipaddress,
+	    useragent: myuseragent,
+	    totalrun: numAxios,
+	    utmsource: cSource,
+	    utmmedium: cMedium,
+	    utmcampaign: cCampaign,
+	    utmcontent: cContent,
+	    utmterm: cTerm,
+	    utmid: cID,
+	    ref: cRef,
+	    utmfirstcampaign: cFirstCampaign,
+	    utmplacement: cPlacement,
+	    utmcid: cCID,
+	    fbc: cFbc,
+	    fbp: cFbp,
+	    ttp: cTtp
+   }));
+    xhr.onload = function() {
+     var data = JSON.parse(this.responseText);
+      console.log(data);
+    };
+		sessionStorage.setItem("hasRunAxios", "1");
+		localStorage.setItem("hasRunAxios", "1");
+		  }
+
+             });
+
+         }
+    // }
+};
+
+}
+
+
+// 9 Jan 2023
