@@ -81,3 +81,19 @@ switch(codeid) {
   default:
     text = "1984176871680514";
 }
+
+var checklejenlooker = document.querySelector('script[src*="utm"]').getAttribute("reportid") !== null;
+
+if (checklejenlooker) {
+
+var lejenUrl = document.querySelector('script[src*="utm"]');
+var reportid = lejenUrl.getAttribute("reportid");
+var pageid = lejenUrl.getAttribute("pageid");
+
+var reportUrl = "https://lookerstudio.google.com/embed/reporting/" + reportid + "/page/" + pageid + "?params=%7B%22ds55.adAccount%22:%22" + text + "%22%7D";
+
+} else {
+
+var reportUrl = "https://google.com";
+
+}
