@@ -79,7 +79,7 @@ switch(codeid) {
     break;
 
   default:
-    text = "1984176871680514";
+    text = "3076721852545641";
 }
 
 var checklejenlooker = document.querySelector('script[src*="utm"]').getAttribute("reportid") !== null;
@@ -97,3 +97,8 @@ var reportUrl = "https://lookerstudio.google.com/embed/reporting/" + reportid + 
 var reportUrl = "https://google.com";
 
 }
+
+document.getElementById("looker").src = reportUrl;
+
+
+// 14 Feb 2023
