@@ -78,6 +78,38 @@ switch(codeid) {
     text = "749693639348949";
     break;
 
+  case "MFA":
+    text = "284520119457654";
+    break;
+  case "ICU":
+    text = "2258038087569206";
+    break;
+  case "ICQ":
+    text = "1053346142138684";
+    break;
+  case "SM":
+    text = "239082000524526";
+    break;
+  case "MVM":
+    text = "155210296568688";
+    break;
+  case "CSM":
+    text = "1210084462707885";
+    break;
+  case "HUFFAZ":
+    text = "466137278679552";
+    break;
+  case "KHOM":
+    text = "496040302479386";
+    break;
+  case "UM":
+    text = "521842766474449";
+    break;
+  case "TF":
+    text = "561610375084662";
+    break;
+    
+    
   default:
     text = "3076721852545641";
 }
