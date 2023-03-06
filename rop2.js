@@ -31,12 +31,23 @@ startDateInput.value = currentDate;
 endDateInput.value = currentDate;
 
 // get the button element with the id "show"
-var showButton = document.getElementById('show');
+let showButton = document.getElementById('show');
 
-// simulate a click on the button
-showButton.click();
+// define a function to handle the click event
+function handleClick() {
+  // do something when the button is clicked
+}
 
-void 0
+// check if the button has been clicked in this session
+if (!sessionStorage.getItem('buttonClicked')) {
+  // simulate a click on the button if it hasn't been clicked yet
+  showButton.click();
+  // set a flag in sessionStorage to indicate that the button has been clicked
+  sessionStorage.setItem('buttonClicked', 'true');
+}
+
+// register the click event handler to the button
+showButton.addEventListener('click', handleClick);
 
 }
 
