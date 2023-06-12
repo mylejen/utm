@@ -1,7 +1,15 @@
 (function() {
   var domainsToDecorate = [
           'member.fames.my', //add or remove domains (without https or trailing slash)
-          'onpay.firz.my'
+          'onpay.firz.my',
+          'wabot.my',
+          'www.wabot.my',
+          'dash.wabot.my',
+          'dash2.wabot.my',
+          'dash3.wabot.my',
+          'vip.wabot.my',
+          'ctg.wabot.my',
+          'docs.wabot.my'
       ],
       queryParams = [
           'utm_source',
