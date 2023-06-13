@@ -9,7 +9,11 @@
           'dash3.wabot.my',
           'vip.wabot.my',
           'ctg.wabot.my',
-          'docs.wabot.my'
+          'docs.wabot.my',
+          'onpay.udhiyamecca.com',
+          'udhiyamecca.com',
+          'onpay.utskorban.com',
+          'utskorban.com'
       ],
       queryParams = [
           'utm_source',
