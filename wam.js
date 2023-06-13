@@ -2,7 +2,6 @@
   var domainsToDecorate = [
           'member.fames.my', //add or remove domains (without https or trailing slash)
           'onpay.firz.my',
-          'wabot.my',
           'www.wabot.my',
           'dash.wabot.my',
           'dash2.wabot.my',
@@ -11,9 +10,7 @@
           'ctg.wabot.my',
           'docs.wabot.my',
           'onpay.udhiyamecca.com',
-          'udhiyamecca.com',
-          'onpay.utskorban.com',
-          'utskorban.com'
+          'onpay.utskorban.com'
       ],
       queryParams = [
           'utm_source',
