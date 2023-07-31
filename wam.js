@@ -6,6 +6,8 @@
           'dash.wabot.my',
           'dash2.wabot.my',
           'dash3.wabot.my',
+          'dash4.wabot.my',
+          'dash5.wabot.my',
           'vip.wabot.my',
           'ctg.wabot.my',
           'docs.wabot.my',
