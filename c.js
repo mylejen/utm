@@ -16,6 +16,10 @@ let utm_source = utmparams.get("utm_source")
 let utm_term = utmparams.get("utm_term")
 let utm_ref = utmparams.get("ref")
 
+let namaAnda = utmparams.get("nama")
+let telefonAnda = utmparams.get("telefon")
+let emelAnda = utmparams.get("emel")
+
 let localutmSource = utmparams.get("utm_source")
 let utmSource = encodeURIComponent(localutmSource);
 
@@ -62,6 +66,24 @@ utm_campaign = sessionStorage.utm_campaign
 utm_source = sessionStorage.utm_source
 utm_term = sessionStorage.utm_term
 utm_ref = sessionStorage.utm_ref
+
+let checkClientFullname = document.querySelector("label[for=client_fullname]") !== null;
+if (checkClientFullname) {
+let fieldFullname = document.getElementById("client_fullname")
+fieldFullname.value = namaAnda
+}
+
+let checkClientEmail = document.querySelector("label[for=client_email]") !== null;
+if (checkClientEmail) {
+let fieldEmail = document.getElementById("client_email")
+fieldEmail.value = emelAnda
+}
+
+let checkClientPhoneNumber = document.querySelector("label[for=client_phone_number]") !== null;
+if (checkClientPhoneNumber) {
+let fieldPhoneNumber = document.getElementById("client_phone_number")
+fieldPhoneNumber.value = telefonAnda
+}
 
 combine_campaign_term = utm_campaign + " / " + utm_term;
 
