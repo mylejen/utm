@@ -15,6 +15,7 @@ let utm_campaign = utmparams.get("utm_campaign")
 let utm_source = utmparams.get("utm_source")
 let utm_term = utmparams.get("utm_term")
 let utm_ref = utmparams.get("ref")
+let audience = utmparams.get("audience")
 
 let namaAnda = utmparams.get("nama")
 let telefonAnda = utmparams.get("telefon")
@@ -62,10 +63,17 @@ sessionStorage.setItem('utm_term', utmparams.get("utm_term")) };
 if (utmparams.get("ref")){
 sessionStorage.setItem('utm_ref', utmparams.get("ref")) };
 
+if (utmparams.get("audience")){
+let localutmaudience = utmparams.get("audience")
+let utmaudience = encodeURIComponent(localutmaudience);
+sessionStorage.setItem('audience', utmparams.get("audience"))
+};
+
 utm_campaign = sessionStorage.utm_campaign
 utm_source = sessionStorage.utm_source
 utm_term = sessionStorage.utm_term
 utm_ref = sessionStorage.utm_ref
+audience = sessionStorage.audience
 
 let checkClientFullname = document.querySelector("label[for=client_fullname]") !== null;
 if (checkClientFullname) {
@@ -86,6 +94,7 @@ fieldPhoneNumber.value = telefonAnda
 }
 
 combine_campaign_term = utm_campaign + " / " + utm_term;
+combine_campaign_term_audience = utm_campaign + " / " + utm_term + " / " + audience;
 
 if (textef2 == "Source") {
 document.querySelector("label[for=extra_field_2]").style.display = "none";
@@ -94,14 +103,21 @@ let field2 = document.getElementById("extra_field_2")
 field2.value = utm_source
 }
 
+
 if (textef3 == "Campaign" || textef3 == "Ref" || textef3 == "Rujukan") {
+
 document.querySelector("label[for=extra_field_3]").style.display = "none";
 document.querySelector("input[id=extra_field_3]").style.display = "none";
 let field3 = document.getElementById("extra_field_3")
 // field3.value = utm_campaign
 field3.value = combine_campaign_term
+
+if (audience !== null) {
+field3.value = combine_campaign_term_audience }
+
 if (utm_campaign == null || utm_campaign == "undefined" && utm_ref !== null) {
 field3.value = utm_ref }
+
 }
 
 const d = new Date();
@@ -120,6 +136,7 @@ document.cookie = "muID=" + utmID + ";" + expires + ";path=/; secure; domain=." 
 document.cookie = "muRef=" + utmRef + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muPlacement=" + utmPlacement + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muCID=" + utmCID + ";" + expires + ";path=/; secure; domain=." + domainName;
+document.cookie = "muAudience=" + utmaudience + ";" + expires + ";path=/; secure; domain=." + domainName;
 
 localStorage.setItem('muSource', localutmSource);
 localStorage.setItem('muMedium', localutmMedium);
@@ -130,6 +147,7 @@ localStorage.setItem('muID', localutmID);
 localStorage.setItem('muRef', localutmRef);
 localStorage.setItem('muPlacement', localutmPlacement);
 localStorage.setItem('muCID', localutmCID);
+localStorage.setItem('muAudience', localutmaudience);
 
 }
 
