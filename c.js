@@ -66,6 +66,8 @@ sessionStorage.setItem('utm_ref', utmparams.get("ref")) };
 if (utmparams.get("audience")){
 let localutmaudience = utmparams.get("audience")
 let utmaudience = encodeURIComponent(localutmaudience);
+document.cookie = "muAudience=" + utmaudience + ";" + expires + ";path=/; secure; domain=." + domainName;
+localStorage.setItem('muAudience', localutmaudience);
 sessionStorage.setItem('audience', utmparams.get("audience"))
 };
 
@@ -136,7 +138,6 @@ document.cookie = "muID=" + utmID + ";" + expires + ";path=/; secure; domain=." 
 document.cookie = "muRef=" + utmRef + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muPlacement=" + utmPlacement + ";" + expires + ";path=/; secure; domain=." + domainName;
 document.cookie = "muCID=" + utmCID + ";" + expires + ";path=/; secure; domain=." + domainName;
-document.cookie = "muAudience=" + utmaudience + ";" + expires + ";path=/; secure; domain=." + domainName;
 
 localStorage.setItem('muSource', localutmSource);
 localStorage.setItem('muMedium', localutmMedium);
@@ -147,7 +148,6 @@ localStorage.setItem('muID', localutmID);
 localStorage.setItem('muRef', localutmRef);
 localStorage.setItem('muPlacement', localutmPlacement);
 localStorage.setItem('muCID', localutmCID);
-localStorage.setItem('muAudience', localutmaudience);
 
 }
 
