@@ -1,7 +1,7 @@
 document.documentElement.style.scrollBehavior = "smooth";
 
 /* var dbjs = document.createElement("script");
-    dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/db1.min.js");
+    dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/xxx.js");
     dbjs.setAttribute("type", "text/javascript");
     document.body.appendChild(dbjs);
 
@@ -40,6 +40,8 @@ dbjs.onload = () => {
 	    	var cPlacement = localStorage.getItem('muPlacement');
 	    	var cCID = localStorage.getItem('muCID');
 	    
+	    	var cAudience = localStorage.getItem('muAudience');
+	    
 		// var cRef = localStorage.getItem('muRef');
 	    	var cRef = "local";
 	   
@@ -57,6 +59,7 @@ dbjs.onload = () => {
 				var cID = getCookie("muID");
 			    	var cPlacement = getCookie("muPlacement");
 			    	var cCID = getCookie("muCID");
+			    	var cAudience = getCookie("muAudience");
 			    
 				// var cRef = getCookie("muRef");
 			    	var cRef = "cookies";
@@ -98,13 +101,7 @@ dbjs.onload = () => {
 			  if (checklejentoken) {
 				  var lejenUrl = document.querySelector('script[src*="utm"]');
 				  var lejentoken = lejenUrl.getAttribute("token");
-
-if (lejentoken == "MSP" || lejentoken == "RASU" || lejentoken == "MSU" || lejentoken == "SAA" || lejentoken == "STGR" || lejentoken == "STI" || lejentoken == "ATIQ" || lejentoken == "MATAN" || lejentoken == "MBP" || lejentoken == "MFK" || lejentoken == "SJH" || lejentoken == "MAM" || lejentoken == "MPJ" || lejentoken == "PUSU" || lejentoken == "MAJ" || lejentoken == "MPK" || lejentoken == "MUQA" || lejentoken == "MTC" || lejentoken == "YEZP" || lejentoken == "ADDIN16" || lejentoken == "ADDINMN" || lejentoken == "PEMATAP" || lejentoken == "WADAH" || lejentoken == "MACB" || lejentoken == "PNAB" || lejentoken == "KECHIL" || lejentoken == "MUSTA" || lejentoken == "MKCE") {
-	
-	var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc"
-	
-	}  else { var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc" }
-			  
+				  var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc"
 			  }
 
   var xhr = new XMLHttpRequest();
@@ -123,10 +120,6 @@ if (lejentoken == "MSP" || lejentoken == "RASU" || lejentoken == "MSU" || lejent
 	    productprice: fproprice,
 	    productquantity: proqty,
 	    user: lejentoken,
-	    // offlineeventid: offlineeventid,
-	    // metapixelid: metapixelid,
-	    // adaccountid: adaccountid,
-	    // audienceid: audienceid,
 	    url: currenturl,
 	    timestamp: unixTimestamp,
 	    ipaddress: myipaddress,
@@ -144,7 +137,8 @@ if (lejentoken == "MSP" || lejentoken == "RASU" || lejentoken == "MSU" || lejent
 	    fbp: cFbp,
 	    ttp: cTtp,
 	    utmplacement: cPlacement,
-	    utmcid: cCID
+	    utmcid: cCID,
+	    audience: cAudience
    }));
     xhr.onload = function() {
      var data = JSON.parse(this.responseText);
@@ -161,3 +155,4 @@ if (lejentoken == "MSP" || lejentoken == "RASU" || lejentoken == "MSU" || lejent
 };
 
 // 21 Okt 2022
+// Add Audience Params on 8 Okt 2023
