@@ -114,7 +114,7 @@ let field3 = document.getElementById("extra_field_3")
 // field3.value = utm_campaign
 field3.value = combine_campaign_term
 
-if (audience !== null || audience !== "undefined" || audience !== "") {
+if (audience == "new_customer" || audience == "existing_customer") {
 field3.value = combine_campaign_term_audience }
 
 if (utm_campaign == null || utm_campaign == "undefined" && utm_ref !== null) {
