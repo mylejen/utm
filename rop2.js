@@ -65,5 +65,16 @@ if (checkbox) {
     }
 }
 
+var dropdownSalesGraph = document.getElementById('sales_graph_status');
+if (dropdownSalesGraph) {
+  // Set the selected value to "confirmed"
+  dropdownSalesGraph.value = 'confirmed';
+
+  // Create and dispatch an "input" event
+  var event = new Event('input', { bubbles: true });
+  dropdownSalesGraph.dispatchEvent(event);
+}
+
 // Created 6 Mac 2023
 // Updated 26 August 2023
+// Updated for dropdownSalesGraph on 13 October 2023
