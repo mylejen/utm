@@ -73,6 +73,8 @@ if (dropdownSalesGraph) {
   // Create and dispatch an "input" event
   var event = new Event('input', { bubbles: true });
   dropdownSalesGraph.dispatchEvent(event);
+
+  sessionStorage.removeItem('buttonClicked');
 }
 
 // Created 6 Mac 2023
