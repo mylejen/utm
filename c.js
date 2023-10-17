@@ -51,6 +51,9 @@ let utmPlacement = encodeURIComponent(localutmPlacement);
 let localutmCID = utmparams.get("utm_cid")
 let utmCID = encodeURIComponent(localutmCID);
 
+let localutmaudience = utmparams.get("audience")
+let utmaudience = encodeURIComponent(localutmaudience);
+
 if (utmparams.get("utm_campaign")){
 sessionStorage.setItem('utm_campaign', utmparams.get("utm_campaign")) };
 
@@ -64,11 +67,7 @@ if (utmparams.get("ref")){
 sessionStorage.setItem('utm_ref', utmparams.get("ref")) };
 
 if (utmparams.get("audience")){
-let localutmaudience = utmparams.get("audience")
-let utmaudience = encodeURIComponent(localutmaudience);
-localStorage.setItem('muAudience', localutmaudience);
-sessionStorage.setItem('audience', utmparams.get("audience"))
-};
+sessionStorage.setItem('audience', utmparams.get("audience")) };
 
 utm_campaign = sessionStorage.utm_campaign
 utm_source = sessionStorage.utm_source
@@ -148,6 +147,7 @@ localStorage.setItem('muID', localutmID);
 localStorage.setItem('muRef', localutmRef);
 localStorage.setItem('muPlacement', localutmPlacement);
 localStorage.setItem('muCID', localutmCID);
+localStorage.setItem('muAudience', localutmaudience);
 
 }
 
