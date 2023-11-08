@@ -63,12 +63,11 @@
   }
 
   function getQueryParam(name) {
-    if ((name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search)) {
+    if ((name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search))) {
       return decodeURIComponent(name[1]);
     }
   }
 })();
-
 
 let checktarikh = document.getElementById("tarikh") !== null;
 if (checktarikh) {
