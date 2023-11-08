@@ -1,61 +1,72 @@
 (function() {
   var domainsToDecorate = [
-          'member.fames.my', //add or remove domains (without https or trailing slash)
-          'onpay.firz.my',
-          'www.wabot.my',
-          'dash.wabot.my',
-          'dash2.wabot.my',
-          'dash3.wabot.my',
-          'dash4.wabot.my',
-          'dash5.wabot.my',
-          'dash6.wabot.my',
-          'vip.wabot.my',
-          'ctg.wabot.my',
-          'docs.wabot.my',
-          'onpay.udhiyamecca.com',
-          'onpay.utskorban.com'
-      ],
-      queryParams = [
-          'utm_source',
-          'utm_medium',
-          'utm_campaign',
-          'utm_content',
-          'utm_term',
-          'utm_id',
-          'utm_cid',
-          'utm_placement',
-          'ref'
-      ]
-  // do not edit anything below this line
-  var links = document.querySelectorAll('a'); 
+    'member.fames.my',
+    'onpay.firz.my',
+    'www.wabot.my',
+    'dash.wabot.my',
+    'dash2.wabot.my',
+    'dash3.wabot.my',
+    'dash4.wabot.my',
+    'dash5.wabot.my',
+    'dash6.wabot.my',
+    'vip.wabot.my',
+    'ctg.wabot.my',
+    'docs.wabot.my',
+    'dash.wabot.pro',
+    'dash.wabot.plus',
+    'dash.wabot.chat',
+    'kliksini.my',
+    'app.mleads.pro',
+    'waform.my'
+  ];
+  var queryParams = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'utm_id',
+    'utm_cid',
+    'utm_placement',
+    'ref'
+  ];
 
-// check if links contain domain from the domainsToDecorate array and then decorates
+  var links = document.querySelectorAll('a');
+
   for (var linkIndex = 0; linkIndex < links.length; linkIndex++) {
-      for (var domainIndex = 0; domainIndex < domainsToDecorate.length; domainIndex++) { 
-          if (links[linkIndex].href.indexOf(domainsToDecorate[domainIndex]) > -1 && links[linkIndex].href.indexOf("#") === -1) {
-              links[linkIndex].href = decorateUrl(links[linkIndex].href);
-          }
+    for (var domainIndex = 0; domainIndex < domainsToDecorate.length; domainIndex++) {
+      if (links[linkIndex].href.indexOf(domainsToDecorate[domainIndex]) > -1 && links[linkIndex].href.indexOf('#') === -1) {
+        links[linkIndex].href = decorateUrl(links[linkIndex].href);
       }
+    }
   }
-// decorates the URL with query params
+
   function decorateUrl(urlToDecorate) {
-      urlToDecorate = (urlToDecorate.indexOf('?') === -1) ? urlToDecorate + '?' : urlToDecorate + '&';
-      var collectedQueryParams = [];
-      for (var queryIndex = 0; queryIndex < queryParams.length; queryIndex++) {
-          if (getQueryParam(queryParams[queryIndex])) {
-              collectedQueryParams.push(queryParams[queryIndex] + '=' + getQueryParam(queryParams[queryIndex]))
-          }
+    var collectedQueryParams = [];
+
+    var hasQueryParams = urlToDecorate.indexOf('?') !== -1;
+
+    for (var queryIndex = 0; queryIndex < queryParams.length; queryIndex++) {
+      var paramValue = getQueryParam(queryParams[queryIndex]);
+
+      if (paramValue) {
+        collectedQueryParams.push(queryParams[queryIndex] + '=' + paramValue);
       }
-      return urlToDecorate + collectedQueryParams.join('&');
+    }
+
+    if (collectedQueryParams.length > 0) {
+      urlToDecorate += hasQueryParams ? '&' : '?';
+      urlToDecorate += collectedQueryParams.join('&');
+    }
+
+    return urlToDecorate;
   }
 
-  // borrowed from https://stackoverflow.com/questions/831030/
-  // a function that retrieves the value of a query parameter
   function getQueryParam(name) {
-      if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search))
-          return decodeURIComponent(name[1]);
+    if ((name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search)) {
+      return decodeURIComponent(name[1]);
+    }
   }
-
 })();
 
 
