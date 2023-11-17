@@ -215,3 +215,8 @@ var customDonationPercentage = (customDonationCurrentValue / customDonationTarge
 $("#custom-donation-current-value").html(customDonationCurrentValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
 $("#custom-donation-target-value").html(customDonationTargetValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
 $("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%"); }
+
+let checkuuid = PageData.uuid !== null;
+if (checkuuid) {
+zaraz.set("uuid", PageData.uuid)
+}
