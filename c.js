@@ -192,6 +192,7 @@ let hrefscroll = document.getElementById("buttonscroll").hash;
 document.getElementById("buttonscroll").href = window.location.href.split("#")[0] + hrefscroll;
 }
 
+
 let checktarikh = document.getElementById("tarikh") !== null;
 if (checktarikh) {
 const now = new Date();
@@ -204,7 +205,9 @@ today = days[now.getDay()] + ", " + date + " " + months[now.getMonth()] + " " + 
 document.getElementById("tarikh").innerHTML = today;
 }
 
+
 let lejen = document.querySelector('script[src*="utm"]')
+
 let sasaran = lejen.getAttribute("sasaran")
 let checklejen = sasaran !== null;
 
@@ -216,7 +219,38 @@ $("#custom-donation-current-value").html(customDonationCurrentValue.toLocaleStri
 $("#custom-donation-target-value").html(customDonationTargetValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
 $("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%"); }
 
+
 let checkuuid = PageData.uuid !== null;
 if (checkuuid) {
 zaraz.set("uuid", PageData.uuid)
+}
+
+
+let domain = lejen.getAttribute("domain")
+let checkdomain = domain !== null;
+
+if (checkdomain) {
+    window.addEventListener("message", receiveMessage, false);
+
+    function requestCookiesFromParent() {
+        window.parent.postMessage("requestCookies", "https://" + domain);  // Replace with your main domain
+    }
+
+    function receiveMessage(event) {
+        var allowedOrigin = "https://" + domain;  // Replace with your main domain
+
+        if (event.origin !== allowedOrigin) {
+            console.log("Origin not allowed");
+            return;
+        }
+
+        var cookies = event.data.cookies;
+        for (var key in cookies) {
+            if (cookies[key] !== null) {
+                localStorage.setItem(key, cookies[key]);
+            }
+        }
+    }
+
+    requestCookiesFromParent();
 }
