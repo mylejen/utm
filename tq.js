@@ -41,6 +41,15 @@ dbjs.onload = () => {
 	    	var cCID = localStorage.getItem('muCID');
 	    
 	    	var cAudience = localStorage.getItem('muAudience');
+	    	
+	    	var cFbc = localStorage.getItem('_fbc');
+	    	if (cFbc == "" || cFbc == null || cFbc == "null" || cFbc == "undefined") { var cFbc = getCookie("_fbc"); }
+	    
+		var cFbp = localStorage.getItem('_fbp');
+	    	if (cFbp == "" || cFbp == null || cFbp == "null" || cFbp == "undefined") { var cFbp = getCookie("_fbp"); }
+	    	
+		var cTtp = localStorage.getItem('_ttp');
+	    	if (cTtp == "" || cTtp == null || cTtp == "null" || cTtp == "undefined") { var cTtp = getCookie("_ttp"); }
 	    
 		// var cRef = localStorage.getItem('muRef');
 	    	var cRef = "local";
@@ -64,11 +73,7 @@ dbjs.onload = () => {
 				// var cRef = getCookie("muRef");
 			    	var cRef = "cookies";
 
-		    		}
-			    
-				var cFbc = getCookie("_fbc");
-				var cFbp = getCookie("_fbp");
-				var cTtp = getCookie("_ttp");
+		    		}	
 		
 	   	function text(url) { return fetch(url).then(res => res.text()); }
 		function convertToFloat(value) { return parseFloat(value.replace(",", "")); }
