@@ -162,6 +162,25 @@ let cFirstCampaign = ('; '+document.cookie).split(`; muFirstCampaign=`).pop().sp
           
 }
 
+	    function getCookie(name) {
+    		var cookieArr = document.cookie.split(";");
+    		for(var i = 0; i < cookieArr.length; i++) {
+        		var cookiePair = cookieArr[i].split("=");
+        		if(name == cookiePair[0].trim()) {
+            	return decodeURIComponent(cookiePair[1]); } } 
+		    return null;
+	    	}
+
+var localfbc = getCookie("_fbc");
+localStorage.setItem('_fbc', localfbc);
+
+var localfbp = getCookie("_fbp");
+localStorage.setItem('_fbp', localfbp);
+
+var localttp = getCookie("_ttp");
+localStorage.setItem('_ttp', localttp);
+
+
 sessionStorage.setItem("hasRunAxios", "0");
 localStorage.setItem("hasRunAxios", "0");
 
