@@ -6,9 +6,10 @@ if (checkDataUrl) {
   let element = document.getElementById("onpay-order-form");
   let hrefString = element.getAttribute("data-url");
 
-  if (currentUrl.toLowerCase().includes("sms")) {
+  if (currentUrl.pathname.toLowerCase().includes("/sms")) {
 
-    let newCampaignName = currentUrl.replace(/^https?:\/\/[^/]+/, '').split('/')[1];
+    // let newCampaignName = currentUrl.replace(/^https?:\/\/[^/]+/, '').split('/')[1];
+    let newCampaignName = currentUrl.pathname.replace(/^\/+|\/+$/g, '').split('/')[1];
     let newhrefString = element.setAttribute("data-url", hrefString + "?utm_source=sms&utm_medium=broadcast&utm_campaign=" + newCampaignName);
 
   } else {
