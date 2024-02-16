@@ -2,7 +2,7 @@ let checkDataUrl = document.getElementById("onpay-order-form") !== null;
 
 if (checkDataUrl) {
 
-  let currentUrl = window.location.href;
+  let currentUrl = new URL(window.location.href);
   let element = document.getElementById("onpay-order-form");
   let hrefString = element.getAttribute("data-url");
 
