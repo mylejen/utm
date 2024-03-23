@@ -245,6 +245,21 @@ zaraz.set("uuid", PageData.uuid)
 }
 
 
+let checkFormUrl = document.getElementById("borang") !== null;
+
+if (checkFormUrl) {
+
+let currentUrl = new URL(window.location.href);
+let formElement = document.getElementById("borang");
+let anchorElements = document.querySelectorAll('a[href="' + formElement.getAttribute('href') + '"]');
+
+anchorElements.forEach((anchor) => {
+  anchor.setAttribute('href', currentUrl.href + '#form');
+});
+
+}
+
+
 let domain = lejen.getAttribute("domain")
 let checkdomain = domain !== null;
 
