@@ -239,12 +239,6 @@ $("#custom-donation-target-value").html(customDonationTargetValue.toLocaleString
 $("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%"); }
 
 
-let checkuuid = PageData.uuid !== null;
-if (checkuuid) {
-zaraz.set("uuid", PageData.uuid)
-}
-
-
 let checkFormUrl = document.getElementById("borang") !== null;
 
 if (checkFormUrl) {
@@ -288,3 +282,10 @@ if (checkdomain) {
 
     requestCookiesFromParent();
 }
+
+let checkuuid = PageData.uuid !== null;
+if (checkuuid) {
+zaraz.set("uuid", PageData.uuid)
+}
+
+
