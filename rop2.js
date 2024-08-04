@@ -77,6 +77,21 @@ if (dropdownSalesGraph) {
   sessionStorage.removeItem('buttonClicked');
 }
 
+
+var dropdownSalesStats = document.querySelector('#status.form-control');
+if (dropdownSalesStats) {
+  // Set the selected value to "confirmed"
+  dropdownSalesStats.value = 'confirmed';
+
+  // Create and dispatch an "input" event
+  var event = new Event('input', { bubbles: true });
+  dropdownSalesStats.dispatchEvent(event);
+
+  sessionStorage.removeItem('buttonClicked');
+}
+
+
 // Created 6 Mac 2023
 // Updated 26 August 2023
 // Updated for dropdownSalesGraph on 13 October 2023
+// Updated for dropdownSalesStats on 4 August 2024
