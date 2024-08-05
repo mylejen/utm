@@ -49,28 +49,36 @@ if (checkbox) {
     // Only simulate button click if session storage is not set
     if (!sessionStorage.getItem('buttonClicked')) {
         handleClick();
+
         // Prevent default action if the button causes a form submission
-        showButton.addEventListener('click', (e) => e.preventDefault());
+        showButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.setItem('buttonClicked', 'true');
+        });
+
         showButton.click();
-        sessionStorage.setItem('buttonClicked', 'true');
     }
 }
 
-var dropdownSalesGraph = document.getElementById('sales_graph_status');
-if (dropdownSalesGraph) {
-    dropdownSalesGraph.value = 'confirmed';
-    var event = new Event('input', { bubbles: true });
-    dropdownSalesGraph.dispatchEvent(event);
-    sessionStorage.removeItem('buttonClicked');
-}
+// Remove the session storage item at the end of the script execution
+window.addEventListener('load', function() {
+    var dropdownSalesGraph = document.getElementById('sales_graph_status');
+    if (dropdownSalesGraph) {
+        dropdownSalesGraph.value = 'confirmed';
+        var event = new Event('input', { bubbles: true });
+        dropdownSalesGraph.dispatchEvent(event);
+    }
 
-var dropdownSalesStats = document.querySelector('#status.form-control');
-if (dropdownSalesStats) {
-    dropdownSalesStats.value = 'confirmed';
-    var event = new Event('input', { bubbles: true });
-    dropdownSalesStats.dispatchEvent(event);
+    var dropdownSalesStats = document.querySelector('#status.form-control');
+    if (dropdownSalesStats) {
+        dropdownSalesStats.value = 'confirmed';
+        var event = new Event('input', { bubbles: true });
+        dropdownSalesStats.dispatchEvent(event);
+    }
+
+    // Only remove the sessionStorage item at the end
     sessionStorage.removeItem('buttonClicked');
-}
+});
 
 
 
