@@ -95,9 +95,9 @@ if (dropdownSalesStats) {
   
   
   // Check if the URL contains '/statistics/'
-  if (currentUrl.includes('/statistics/')) {
-  sessionStorage.removeItem('buttonClicked');
-  }
+  // if (currentUrl.includes('/statistics/')) {
+  // sessionStorage.removeItem('buttonClicked');
+  // }
 }
 
 
