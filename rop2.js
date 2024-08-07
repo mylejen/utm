@@ -1,6 +1,3 @@
-// Get the current URL
-var currentUrl = window.location.href;
-
 let checkbox = document.querySelector('#show') !== null;
 
 if (checkbox) {
@@ -83,9 +80,11 @@ if (dropdownSalesGraph) {
 }
 
 
-var dropdownSalesStats = document.querySelector('#status.form-control');
-if (dropdownSalesStats) {
-	
+var checkStatsTypeLinks = document.getElementById('stats-type-links');
+if (checkStatsTypeLinks) {
+
+  var dropdownSalesStats = document.querySelector('#status.form-control');
+
   // Set the selected value to "confirmed"
   dropdownSalesStats.value = 'confirmed';
 
@@ -93,11 +92,7 @@ if (dropdownSalesStats) {
   var event = new Event('input', { bubbles: true });
   dropdownSalesStats.dispatchEvent(event);
   
-  
-  // Check if the URL contains '/statistics/'
-  // if (currentUrl.includes('/statistics/')) {
-  // sessionStorage.removeItem('buttonClicked');
-  // }
+  sessionStorage.removeItem('buttonClicked');
 }
 
 
