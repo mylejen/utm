@@ -227,16 +227,89 @@ document.getElementById("tarikh").innerHTML = today;
 
 let lejen = document.querySelector('script[src*="utm"]')
 
-let sasaran = lejen.getAttribute("sasaran")
-let checklejen = sasaran !== null;
 
-if (checklejen) {
+let sasaranlama = lejen.getAttribute("sasaranlama")
+let checklejensasaranlama = sasaranlama !== null;
+
+if (checklejensasaranlama) {
 var customDonationCurrentValue = Number(PageData.salesStats.total_amount_all);
-var customDonationTargetValue = parseFloat(sasaran);
+var customDonationTargetValue = parseFloat(sasaranlama);
 var customDonationPercentage = (customDonationCurrentValue / customDonationTargetValue) * 100;
 $("#custom-donation-current-value").html(customDonationCurrentValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
 $("#custom-donation-target-value").html(customDonationTargetValue.toLocaleString(undefined, { minimumFractionDigits: 2 }));
-$("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%"); }
+$("#custom-donation-progress-bar").find(".progress-bar").css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%").html(customDonationPercentage.toFixed(2) + "%");
+}
+
+
+let sasaran = lejen.getAttribute("sasaran")
+let checklejensasaran = sasaran !== null;
+
+if (checklejensasaran) {
+
+var progressBar = $('#custom-donation-progress-bar');
+var dynamicTarget = parseFloat(progressBar.data('dynamic-target'));
+
+    if (isNaN(dynamicTarget)) {
+        dynamicTarget = parseFloat(sasaran);
+        progressBar.data('dynamic-target', dynamicTarget);
+    }
+
+var customDonationCurrentValue = Number(PageData.salesStats.total_amount_all);
+
+if (customDonationCurrentValue >= parseFloat(sasaran)) {
+var newTarget = customDonationCurrentValue * 1.2;
+var interval;
+
+        if (newTarget < 100000) {
+            interval = 2000;
+        } else if (newTarget < 1000000) {
+            interval = 20000;
+        } else {
+            interval = 200000;
+        }
+
+        newTarget = Math.ceil(newTarget / interval) * interval;
+
+var minimumTarget = parseFloat(sasaran) * 1.2;
+
+var minInterval;
+
+        if (minimumTarget < 100000) {
+            minInterval = 2000;
+        } else if (minimumTarget < 1000000) {
+            minInterval = 20000;
+        } else {
+            minInterval = 200000;
+        }
+
+minimumTarget = Math.ceil(minimumTarget / minInterval) * minInterval;
+
+        if (newTarget < minimumTarget) {
+            newTarget = minimumTarget;
+        }
+
+        dynamicTarget = newTarget;
+        progressBar.data('dynamic-target', dynamicTarget);
+    } else {
+
+        dynamicTarget = parseFloat(sasaran);
+        progressBar.data('dynamic-target', dynamicTarget);
+    }
+
+var customDonationPercentage = (customDonationCurrentValue / dynamicTarget) * 100;
+
+    $("#custom-donation-target-value").html(dynamicTarget.toLocaleString(undefined, { 
+        minimumFractionDigits: 2 
+    }));
+
+    $("#custom-donation-current-value").html(customDonationCurrentValue.toLocaleString(undefined, { 
+        minimumFractionDigits: 2 
+    }));
+
+    $("#custom-donation-progress-bar").find(".progress-bar")
+        .css("width", (customDonationPercentage > 100 ? 100 : customDonationPercentage).toFixed(2) + "%")
+        .html(customDonationPercentage.toFixed(2) + "%");
+}
 
 
 let checkFormUrl = document.getElementById("borang") !== null;
