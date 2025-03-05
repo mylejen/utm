@@ -64,6 +64,31 @@ if (checkbox) {
         // set a flag in sessionStorage to indicate that the button has been clicked
         sessionStorage.setItem('buttonClicked', 'true');
     }
+
+	// New on 6 Mac 2025 - Add Jumlah Nilai Above
+	const boldElements = document.getElementsByClassName('bold');
+	for (let el of boldElements) {
+	
+    	if (el.textContent.includes('JUMLAH NILAI KESELURUHAN')) {
+        const customBtn = document.getElementById('custom_btn');
+        
+	if (customBtn) {
+            // Create a new paragraph element
+            const totalParagraph = document.createElement('p');
+            totalParagraph.textContent = el.textContent;
+            
+            // Styling
+            totalParagraph.style.fontWeight = 'bold';
+            totalParagraph.style.color = 'blue';
+            totalParagraph.style.fontSize = '18px';  // Increased font size
+            totalParagraph.style.marginTop = '20px'; // Added margin above the text
+            
+            // Insert the new paragraph right after the custom_btn
+            customBtn.insertAdjacentElement('afterend', totalParagraph);
+            break; } 
+		} 
+	}
+
 }
 
 
@@ -100,3 +125,4 @@ if (checkStatsTypeLinks) {
 // Updated 26 August 2023
 // Updated for dropdownSalesGraph on 13 October 2023
 // Updated for dropdownSalesStats on 4 August 2024
+// Updated for Jumlah Nilai Keseluruhan on 6 Mac 2025
