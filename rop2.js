@@ -1,7 +1,6 @@
 let checkbox = document.querySelector('#show') !== null;
 
 if (checkbox) {
-	
     let showButton = document.getElementById('show');
 
     // define a function to handle the click event
@@ -13,6 +12,7 @@ if (checkbox) {
       
       document.getElementsByName('c[extra_field_2]')[0].checked = true;
       document.getElementsByName('c[extra_field_3]')[0].checked = true;
+      document.getElementById("fv").value = "";
       
       Array.from(document.getElementById("status").options).find(option => option.value === "confirmed").selected = true;
       Array.from(document.getElementById("record_limit").options).find(option => option.value === "all").selected = true;
@@ -38,7 +38,37 @@ if (checkbox) {
 
     }
     
-    // Create a new button element
+    // WhatsApp button click handler
+    function handleWhatsAppClick() {
+      // First do the same as handleClick
+      handleClick();
+      
+      // Then select "Tambahan #2" instead of "Borang"
+      Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
+      
+      // Set the input text value to "WhatsApp"
+      document.getElementById("fv").value = "WhatsApp";
+      
+      // Also click the show button
+      showButton.click();
+    }
+    
+    // Facebook button click handler
+    function handleFacebookClick() {
+      // First do the same as handleClick
+      handleClick();
+      
+            // Then select "Tambahan #2" instead of "Borang"
+      Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
+      
+      // Set the input text value to "facebook"
+      document.getElementById("fv").value = "facebook";
+      
+      // Also click the show button
+      showButton.click();
+    }
+    
+    // Create a new button element for Reset
     let customButton = document.createElement("button");
     
     // Set properties for the new button
@@ -50,11 +80,38 @@ if (checkbox) {
     // Add an event listener to the button that triggers handleClick function when it is clicked
     customButton.addEventListener('click', handleClick);
     
+    // Create WhatsApp button
+    let whatsAppButton = document.createElement("button");
+    whatsAppButton.type = "button";
+    whatsAppButton.className = "btn btn-success"; // Green color for WhatsApp
+    whatsAppButton.id = "whatsapp_btn";
+    whatsAppButton.style.marginLeft = "5px"; // Add some spacing
+    whatsAppButton.innerHTML = '<span class="glyphicon glyphicon-phone"></span>&nbsp; WhatsApp'; // WhatsApp icon and text
+    whatsAppButton.addEventListener('click', handleWhatsAppClick);
+    
+    // Create Facebook button
+    let facebookButton = document.createElement("button");
+    facebookButton.type = "button";
+    facebookButton.className = "btn btn-primary"; // Blue color for Facebook
+    facebookButton.id = "facebook_btn";
+    facebookButton.style.marginLeft = "5px"; // Add some spacing
+    facebookButton.innerHTML = '<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp; Facebook'; // Facebook icon and text
+    facebookButton.addEventListener('click', handleFacebookClick);
+    
     // Select the parent div
     let parentDiv = document.getElementsByClassName('col-md-12')[2];
     
-    // Append the new button to the parent div
-    parentDiv.appendChild(customButton);
+    // Create a container div for all buttons to ensure they're in line
+    let buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "inline-block";
+    
+    // Append all the new buttons to the container div
+    buttonContainer.appendChild(customButton);
+    buttonContainer.appendChild(whatsAppButton);
+    buttonContainer.appendChild(facebookButton);
+    
+    // Append the container to the parent div
+    parentDiv.appendChild(buttonContainer);
 
     // Set the sessionStorage only if it's not set
     if (!sessionStorage.getItem('buttonClicked')) {
@@ -68,11 +125,10 @@ if (checkbox) {
 	// New on 6 Mac 2025 - Add Jumlah Nilai Above
 	const boldElements = document.getElementsByClassName('bold');
 	for (let el of boldElements) {
-	
     	if (el.textContent.includes('JUMLAH NILAI KESELURUHAN')) {
-        const customBtn = document.getElementById('custom_btn');
+        const buttonContainer = document.querySelector('.col-md-12 > div');
         
-	if (customBtn) {
+	if (buttonContainer) {
             // Create a new paragraph element
             const totalParagraph = document.createElement('p');
             totalParagraph.textContent = el.textContent;
@@ -83,12 +139,11 @@ if (checkbox) {
             totalParagraph.style.fontSize = '18px';  // Increased font size
             totalParagraph.style.marginTop = '20px'; // Added margin above the text
             
-            // Insert the new paragraph right after the custom_btn
-            customBtn.insertAdjacentElement('afterend', totalParagraph);
+            // Insert the new paragraph right after the button container
+            buttonContainer.insertAdjacentElement('afterend', totalParagraph);
             break; } 
 		} 
 	}
-
 }
 
 
@@ -126,3 +181,4 @@ if (checkStatsTypeLinks) {
 // Updated for dropdownSalesGraph on 13 October 2023
 // Updated for dropdownSalesStats on 4 August 2024
 // Updated for Jumlah Nilai Keseluruhan on 6 Mac 2025
+// Updated for WA & FB button on 15 Mac 2025
