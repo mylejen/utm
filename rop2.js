@@ -67,6 +67,21 @@ if (checkbox) {
       // Also click the show button
       showButton.click();
     }
+
+    // F button click handler
+    function handleFClick() {
+      // First do the same as handleClick
+      handleClick();
+      
+            // Then select "Tambahan #2" instead of "Borang"
+      Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
+      
+      // Set the input text value to "facebook"
+      document.getElementById("fv").value = "f";
+      
+      // Also click the show button
+      showButton.click();
+    }
     
     // Create a new button element for Reset
     let customButton = document.createElement("button");
@@ -97,6 +112,15 @@ if (checkbox) {
     facebookButton.style.marginLeft = "5px"; // Add some spacing
     facebookButton.innerHTML = '<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp; Facebook'; // Facebook icon and text
     facebookButton.addEventListener('click', handleFacebookClick);
+
+    // Create F button
+    let fButton = document.createElement("button");
+    fButton.type = "button";
+    fButton.className = "btn btn-primary"; // Blue color for Facebook
+    fButton.id = "f_btn";
+    fButton.style.marginLeft = "5px"; // Add some spacing
+    fButton.innerHTML = '<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp; Huruf F'; // Facebook icon and text
+    fButton.addEventListener('click', handleFClick);
     
     // Select the parent div
     let parentDiv = document.getElementsByClassName('col-md-12')[2];
@@ -109,6 +133,7 @@ if (checkbox) {
     buttonContainer.appendChild(customButton);
     buttonContainer.appendChild(whatsAppButton);
     buttonContainer.appendChild(facebookButton);
+    buttonContainer.appendChild(fButton);
     
     // Append the container to the parent div
     parentDiv.appendChild(buttonContainer);
@@ -182,3 +207,4 @@ if (checkStatsTypeLinks) {
 // Updated for dropdownSalesStats on 4 August 2024
 // Updated for Jumlah Nilai Keseluruhan on 6 Mac 2025
 // Updated for WA & FB button on 15 Mac 2025
+// Updated for F button on 27 Mac 2025
