@@ -110,7 +110,8 @@ dbjs.onload = () => {
 			  }
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  // xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  xhr.open('POST', 'https://t.reka.my/sendwebhookdata.php', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
 	    uid: uid,
