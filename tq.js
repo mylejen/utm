@@ -106,12 +106,12 @@ dbjs.onload = () => {
 			  if (checklejentoken) {
 				  var lejenUrl = document.querySelector('script[src*="utm"]');
 				  var lejentoken = lejenUrl.getAttribute("token");
-				  var pabblyid = "IjU3NjYwNTY5MDYzMTA0Mzc1MjZkNTUzZDUxMzMi_pc"
+				  var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc"
 			  }
 
   var xhr = new XMLHttpRequest();
-  // xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
-  xhr.open('POST', 'https://t.reka.my/sendwebhookdata.php', true);
+  xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  // xhr.open('POST', 'https://t.reka.my/sendwebhookdata.php', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
 	    uid: uid,
