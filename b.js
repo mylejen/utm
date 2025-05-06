@@ -191,7 +191,7 @@ let ipRegex = /([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/
 let myipaddress = data.match(ipRegex)[0];
 let currenturl = window.location.protocol + "//" + window.location.host
 
-if (myipaddress == "183.171.27.151" || myipaddress == "183.171.16.18" || myipaddress == "183.171.29.155" || myipaddress == "183.171.29.217" || myipaddress == "115.164.204.49" || myipaddress == "14.192.213.30") {
+if (myipaddress == "183.171.27.151" || myipaddress == "183.171.16.18" || myipaddress == "183.171.29.155" || myipaddress == "183.171.29.217" || myipaddress == "115.164.204.49" || myipaddress == "14.192.213.30" || myipaddress == "180.75.241.55") {
 alert('Sorry, contact admin to enter');
 window.location = currenturl; }
 });
