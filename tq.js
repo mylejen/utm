@@ -110,8 +110,9 @@ dbjs.onload = () => {
 			  }
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
+  // xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
   // xhr.open('POST', 'https://t.reka.my/sendwebhookdata.php', true);
+  xhr.open('POST', 'https://webhook.site/lejen', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
 	    uid: uid,
@@ -162,3 +163,4 @@ dbjs.onload = () => {
 
 // 21 Okt 2022
 // Add Audience Params on 8 Okt 2023
+// Updated to new webhook url on 27 May 2025
