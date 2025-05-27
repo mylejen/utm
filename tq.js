@@ -1,20 +1,6 @@
 document.documentElement.style.scrollBehavior = "smooth";
 
-/* var dbjs = document.createElement("script");
-    dbjs.setAttribute("src", "https://cdn.jsdelivr.net/gh/mylejen/utm@latest/xxx.js");
-    dbjs.setAttribute("type", "text/javascript");
-    document.body.appendChild(dbjs);
-
-dbjs.onload = () => {
-    if (document.readyState !== "loading") {
-        initMuTrack();
-    } else {
-        document.addEventListener("DOMContentLoaded", function () {
-            initMuTrack();
-        });
-    }
-*/
-        initMuTrack();
+    initMuTrack();
 
     function initMuTrack() {
 
@@ -106,12 +92,9 @@ dbjs.onload = () => {
 			  if (checklejentoken) {
 				  var lejenUrl = document.querySelector('script[src*="utm"]');
 				  var lejentoken = lejenUrl.getAttribute("token");
-				  var pabblyid = "IjU3NjAwNTZiMDYzMTA0MzE1MjZhNTUzNCI_3D_pc"
 			  }
 
   var xhr = new XMLHttpRequest();
-  // xhr.open('POST', 'https://connect.pabbly.com/workflow/sendwebhookdata/' + pabblyid, true);
-  // xhr.open('POST', 'https://t.reka.my/sendwebhookdata.php', true);
   xhr.open('POST', 'https://webhook.site/lejen', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
@@ -161,6 +144,6 @@ dbjs.onload = () => {
     // }
 };
 
-// 21 Okt 2022
+// Since 21 Okt 2022
 // Add Audience Params on 8 Okt 2023
 // Updated to new webhook url on 27 May 2025
