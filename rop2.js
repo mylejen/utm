@@ -155,7 +155,7 @@ if (checkbox) {
                 costLabel = 'JUMLAH KOS META';
 
                 // Determine the keyword for the Meta case
-                if (fcValue === "invoice_number" && fvValue) {
+                if ((fcValue === "invoice_number" || fcValue === "extra_field_3") && fvValue) {
                     keyword = fvValue; // Keyword is the value from the input, e.g., "TMKM"
                 } else {
                     keyword = ""; // Keyword is none if other conditions aren't met
