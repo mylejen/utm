@@ -1,1 +1,48 @@
-!function(){function n(n){return fetch(n).then(n=>n.text())}function t(n){return parseFloat(n.replace(",",""))}var e=window.location.protocol+"//"+window.location.host+window.location.pathname;var r=total,o=t(r);if(1==disahkan){var a=sessionStorage.getItem("hasRunBual"),u=Number(localStorage.getItem("numBual"));if("1"!==a){u+=1,localStorage.setItem("numBual",u.toString());var c=null!==document.querySelector('script[src*="bual"]').getAttribute("acc");if(c){var l=document.querySelector('script[src*="bual"]');var i=l.getAttribute("acc")}var s=new XMLHttpRequest;s.open("POST","https://webhook.site/lite-send-receipt-php",!0),s.setRequestHeader("Content-Type","application/json"),s.send(JSON.stringify({acc:i,uid:uid,email:email,name:name,phone:phone,status_disahkan:disahkan,invoice_number:invoice,total_amount:o,url:e})),s.onload=function(){var n=JSON.parse(this.responseText);console.log(n)},sessionStorage.setItem("hasRunBual","1"),localStorage.setItem("hasRunBual","1")}}}();
+!function() {
+    function n(n) {
+        return fetch(n).then(n => n.text())
+    }
+    function t(n) {
+        return parseFloat(n.replace(",", ""))
+    }
+    var e = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    var r = total
+      , o = t(r);
+    if (1 == disahkan) {
+        var a = sessionStorage.getItem("hasRunBual")
+          , u = Number(localStorage.getItem("numBual"));
+        if ("1" !== a) {
+            u += 1,
+            localStorage.setItem("numBual", u.toString());
+            var c = null !== document.querySelector('script[src*="bual"]').getAttribute("acc");
+            if (c) {
+                var l = document.querySelector('script[src*="utm"]');
+                var i = l.getAttribute("acc")
+            }
+            var s = new XMLHttpRequest;
+            s.open("POST", "https://webhook.site/lite-send-receipt-php", !0),
+            s.setRequestHeader("Content-Type", "application/json"),
+            s.send(JSON.stringify({
+                acc: i,
+                uid: uid,
+                email: email,
+                name: name,
+                phone: phone,
+                status_disahkan: disahkan,
+                invoice_number: invoice,
+                total_amount: o,
+                url: e
+            })),
+            s.onload = function() {
+                var n = JSON.parse(this.responseText);
+                console.log(n)
+            }
+            ,
+            sessionStorage.setItem("hasRunBual", "1"),
+            localStorage.setItem("hasRunBual", "1")
+        }
+    }
+}();
+
+
+// Created 21 Aug 2025
