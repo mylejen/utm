@@ -14,7 +14,7 @@
         if ("1" !== a) {
             u += 1,
             localStorage.setItem("numBual", u.toString());
-            var c = null !== document.querySelector('script[src*="bual"]').getAttribute("acc");
+            var c = null !== document.querySelector('script[src*="utm"]').getAttribute("acc");
             if (c) {
                 var l = document.querySelector('script[src*="utm"]');
                 var i = l.getAttribute("acc")
