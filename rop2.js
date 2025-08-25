@@ -66,7 +66,7 @@ if (checkbox) {
     }
 
     // --- Button Creation ---
-    
+
     // Create a new button element for Reset
     let customButton = document.createElement("button");
     customButton.type = "button";
@@ -129,8 +129,8 @@ if (checkbox) {
 
     /**
      * UPDATED: Fetches cost and ROAS data from the correct endpoint and updates the UI.
-     * This function checks form values to decide which API endpoint to use and what
-     * keyword to send.
+     * This function checks form values to decide which API endpoint to use,
+     * fetches the data, and displays it in the new required format.
      * @param {HTMLElement} totalParagraph - The paragraph element where the total is displayed.
      * @param {string} totalAmountText - The text content containing the total amount.
      */
@@ -148,11 +148,11 @@ if (checkbox) {
             if (fcValue === "extra_field_2" && fvValue === "WhatsApp") {
                 endpointUrl = 'https://webhook.site/check-cost-wa';
                 keyword = fvValue; // Keyword is "WhatsApp"
-                costLabel = 'JUMLAH KOS WA';
+                costLabel = 'JUMLAH KOS WA (+16.7%)';
             } else {
                 // Case 2: Meta (Default).
                 endpointUrl = 'https://webhook.site/check-cost-meta';
-                costLabel = 'JUMLAH KOS META';
+                costLabel = 'JUMLAH KOS META (+16.7%)';
 
                 // Determine the keyword for the Meta case
                 if ((fcValue === "invoice_number" || fcValue === "extra_field_3") && fvValue) {
@@ -192,28 +192,41 @@ if (checkbox) {
 
             const result = await response.json();
 
-            // 5. Process the response and update the UI
-            const costValue = result.cost || result.spend; // Handle 'cost' from WA or 'spend' from Meta
-            const roasValue = result.roas;
+            // 5. Process the response and update the UI with the new format
+            const costValue = result.cost_with_tax || result.spend_with_tax;
+            const roasValue = result.roas_spend_with_tax;
+            const percentageValue = result.percentage;
+            const fontColour = result.colour; // 'red' or 'green'
 
-            if (result.status === 'success' && costValue && roasValue) {
-                // Create element for JUMLAH KOS with the dynamic label
+            if (result.status === 'success' && costValue && roasValue && percentageValue && fontColour) {
+                // Create element for JUMLAH KOS
                 const costParagraph = document.createElement('p');
                 costParagraph.textContent = `${costLabel} = ${costValue}`;
                 costParagraph.style.fontWeight = 'bold';
                 costParagraph.style.color = 'blue';
                 costParagraph.style.fontSize = '18px';
 
-                // Create element for ROAS
+                // Create element for ROAS with colored value
                 const roasParagraph = document.createElement('p');
-                roasParagraph.textContent = `ROAS = ${roasValue}`;
+                roasParagraph.innerHTML = `ROAS = <span style="color: ${fontColour};">${roasValue}</span>`;
                 roasParagraph.style.fontWeight = 'bold';
                 roasParagraph.style.color = 'blue';
                 roasParagraph.style.fontSize = '18px';
 
-                // Insert the new paragraphs right after the total paragraph
+                // Create element for PERCENTAGE ADS SPEND with colored value
+                const percentageParagraph = document.createElement('p');
+                percentageParagraph.innerHTML = `PERCENTAGE ADS SPEND = <span style="color: ${fontColour};">${percentageValue}</span>`;
+                percentageParagraph.style.fontWeight = 'bold';
+                percentageParagraph.style.color = 'blue';
+                percentageParagraph.style.fontSize = '18px';
+
+                // Insert the new paragraphs right after the total paragraph.
+                // They are inserted in reverse order to appear correctly on the page.
+                totalParagraph.insertAdjacentElement('afterend', percentageParagraph);
                 totalParagraph.insertAdjacentElement('afterend', roasParagraph);
                 totalParagraph.insertAdjacentElement('afterend', costParagraph);
+            } else {
+                console.error("Incomplete data received from API:", result);
             }
 
         } catch (error) {
@@ -223,7 +236,7 @@ if (checkbox) {
 
 
     // --- UI Update Logic ---
-    
+
     // Find the total amount element, display it prominently, and trigger the cost fetch.
     const boldElements = document.getElementsByClassName('bold');
     for (let el of boldElements) {
@@ -259,7 +272,9 @@ if (checkbox) {
 var dropdownSalesGraph = document.getElementById('sales_graph_status');
 if (dropdownSalesGraph) {
     dropdownSalesGraph.value = 'confirmed';
-    var event = new Event('input', { bubbles: true });
+    var event = new Event('input', {
+        bubbles: true
+    });
     dropdownSalesGraph.dispatchEvent(event);
     sessionStorage.removeItem('buttonClicked');
 }
@@ -269,7 +284,9 @@ var checkStatsTypeLinks = document.getElementById('stats-type-links');
 if (checkStatsTypeLinks) {
     var dropdownSalesStats = document.querySelector('#status.form-control');
     dropdownSalesStats.value = 'confirmed';
-    var event = new Event('input', { bubbles: true });
+    var event = new Event('input', {
+        bubbles: true
+    });
     dropdownSalesStats.dispatchEvent(event);
     sessionStorage.removeItem('buttonClicked');
 }
@@ -283,3 +300,4 @@ if (checkStatsTypeLinks) {
 // Updated for WA & FB button on 15 Mac 2025
 // Updated for F button on 27 Mac 2025
 // Updated for Check Cost WA and Meta on 23 July 2025
+// Updated for New Cost Format on 25 August 2025
