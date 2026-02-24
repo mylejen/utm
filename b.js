@@ -360,3 +360,65 @@ let checkuuid = PageData.uuid !== null;
 if (checkuuid) {
 zaraz.set("uuid", PageData.uuid)
 }
+
+
+// New Split Function on 24 Feb 2026
+
+    (function() {
+        // 1. Get the utm_campaign parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const campaignParam = urlParams.get('utm_campaign');
+
+        // 2. Define the default container ID
+        const defaultId = 'UMUM';
+        const defaultDiv = document.getElementById(defaultId);
+
+        // 3. Get all campaign divs using your new class name
+        const allCampaignDivs = document.querySelectorAll('.utm_campaign');
+        
+        let matchFound = false;
+
+        if (campaignParam) {
+            // Convert to uppercase to make the keyword search case-insensitive 
+            const campaignText = campaignParam.toUpperCase();
+
+            // 4. Loop through all potential campaign containers
+            for (let i = 0; i < allCampaignDivs.length; i++) {
+                const div = allCampaignDivs[i];
+                const divId = div.id.toUpperCase();
+
+                // Skip the default UMUM div during the keyword check
+                if (divId === defaultId.toUpperCase()) continue;
+
+                // 5. Logic: Check if the utm_campaign contains this div's ID
+                if (campaignText.includes(divId)) {
+                    console.log("Match found for ID: " + div.id);
+                    
+                    // Show the matched div and hide the default div
+                    div.style.display = 'block';
+                    if (defaultDiv) {
+                        defaultDiv.style.display = 'none';
+                    }
+                    
+                    matchFound = true;
+                    break; // Stop looking once we find the first match
+                }
+            }
+        }
+
+        // 6. Fallback: If no match was found, or no UTM parameter exists
+        if (!matchFound) {
+            console.log("No valid campaign keyword found. Defaulting to UMUM.");
+            // Ensure all dynamic divs stay hidden
+            allCampaignDivs.forEach(div => {
+                if (div.id !== defaultId) {
+                    div.style.display = 'none';
+                }
+            });
+            // Ensure default is visible
+            if (defaultDiv) {
+                defaultDiv.style.display = 'block';
+            }
+        }
+    })();
+
