@@ -93,8 +93,8 @@ let fieldPhoneNumber = document.getElementById("client_phone_number")
 fieldPhoneNumber.value = telefonAnda
 }
 
-combine_campaign_term = utm_campaign + " / " + utm_term;
-combine_campaign_term_audience = utm_campaign + " / " + utm_term + " / " + audience;
+let combine_campaign_term = utm_campaign + " / " + utm_term;
+let combine_campaign_term_audience = utm_campaign + " / " + utm_term + " / " + audience;
 
 if (textef2 == "Source") {
 document.querySelector("label[for=extra_field_2]").style.display = "none";
