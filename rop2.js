@@ -1,303 +1,172 @@
-// Scope the entire script in a check to ensure it only runs if the '#show' button exists.
-let checkbox = document.querySelector('#show') !== null;
-
-if (checkbox) {
-    let showButton = document.getElementById('show');
-
-    // define a function to handle the click event for resetting the form
-    function handleClick() {
-        // Check relevant form fields
-        document.getElementsByName('c[form_code]')[0].checked = true;
-        document.getElementsByName('c[invoice_number]')[0].checked = true;
-        document.getElementsByName('c[extra_field_2]')[0].checked = true;
-        document.getElementsByName('c[extra_field_3]')[0].checked = true;
-        document.getElementById("fv").value = "";
-
-        // Set default dropdown values
-        Array.from(document.getElementById("status").options).find(option => option.value === "confirmed").selected = true;
-        Array.from(document.getElementById("record_limit").options).find(option => option.value === "all").selected = true;
-        Array.from(document.getElementById("fc").options).find(option => option.value === "form").selected = true;
-
-        // Get today's date and format it as DD-MM-YYYY
-        let today = new Date();
-        let day = today.getDate();
-        let month = today.getMonth() + 1; // add 1 because months start at 0
-        let year = today.getFullYear();
-
-        // Add leading zeros to day and month if they are less than 10
-        day = day < 10 ? "0" + day : day;
-        month = month < 10 ? "0" + month : month;
-
-        var currentDate = day + "-" + month + "-" + year;
-
-        var startDateInput = document.getElementsByName('start_date')[0];
-        var endDateInput = document.getElementsByName('end_date')[0];
-
-        // set the value of the date input elements to the current date
-        startDateInput.value = currentDate;
-        endDateInput.value = currentDate;
+(function () {
+  'use strict';
+  var rootId = 'mu-sales-tools';
+  var instanceKey = '__muSalesReportV3';
+  if (window[instanceKey]) { window[instanceKey].ensure(); return; }
+  var cleanup = null, mountedUrl = '', mountedForm = null;
+  var scheduled = false;
+  var initializedStats = new WeakSet();
+  function ensure() {
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(function () { scheduled = false; init(); }, 100);
+  }
+  window[instanceKey] = {ensure:ensure};
+  function query(id, fallback) { return document.getElementById(id) || document.querySelector(fallback); }
+  function changed(el) { el.dispatchEvent(new Event('input', {bubbles:true})); el.dispatchEvent(new Event('change', {bubbles:true})); }
+  function set(el, value) {
+    if (!el) return;
+    if (el.tagName === 'SELECT' && !Array.from(el.options).some(function (o) { return o.value === value; })) return;
+    if (el._flatpickr) el._flatpickr.setDate(value, true, 'Y-m-d');
+    else el.value = value;
+    changed(el);
+  }
+  function today() {
+    var parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Kuala_Lumpur',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    var values = {}; parts.forEach(function (p) { values[p.type] = p.value; });
+    return values.year + '-' + values.month + '-' + values.day;
+  }
+  function init() {
+    stats();
+    if (!/\/admin\/reports\/sales\/?$/.test(location.pathname)) {
+      if (cleanup) { cleanup(); cleanup = null; }
+      return;
     }
-
-    // WhatsApp button click handler
-    function handleWhatsAppClick() {
-        handleClick(); // First, apply the default settings
-        // Then, set WhatsApp-specific fields
-        Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
-        document.getElementById("fv").value = "WhatsApp";
-        showButton.click(); // Trigger the form submission/filter
+    var status = document.getElementById('status');
+    var form = status && status.closest('form');
+    var show = document.getElementById('show') || (form && form.querySelector('button[type="submit"]'));
+    if (!form || !show) return;
+    var existing = document.getElementById(rootId);
+    if (existing && mountedForm === form && mountedUrl === location.href) return;
+    if (cleanup) { cleanup(); cleanup = null; }
+    if (existing) existing.remove();
+    var staleSummary = document.getElementById('mu-sales-summary');
+    if (staleSummary) staleSummary.remove();
+    mountedForm = form; mountedUrl = location.href;
+    var column = query('filter_column','#fc'), value = query('filter_value','#fv');
+    var limit = query('per_page','#record_limit');
+    var start = document.querySelector('[name="start_date"]'), end = document.querySelector('[name="end_date"]');
+    var tools = document.createElement('div'); tools.id = rootId;
+    tools.className = 'form-group row mt-2';
+    tools.style.cssText = 'gap:6px;margin-left:0;margin-right:0';
+    // Keep the native generate/export row intact. Mount a separate sibling row.
+    var actionRow = show.closest('.form-group') || show.parentElement;
+    actionRow.after(tools);
+    function defaults() {
+      ['form_code','invoice_number','extra_field_2','extra_field_3'].forEach(function (key) {
+        var checkbox = form.querySelector('input[name="checked_columns[]"][value="' + key + '"]') || form.querySelector('input[name="c[' + key + ']"]');
+        // Click invokes OnPay's checkbox handler as well as Alpine's model binding.
+        if (checkbox && !checkbox.checked) checkbox.click();
+      });
+      set(status,'confirmed'); set(limit,'all'); set(column,'form'); set(value,'');
+      var date = today();
+      // Older OnPay date inputs used DD-MM-YYYY.
+      if (document.getElementById('record_limit')) date = date.split('-').reverse().join('-');
+      set(start,date); set(end,date);
     }
-
-    // Facebook button click handler
-    function handleFacebookClick() {
-        handleClick(); // First, apply the default settings
-        // Then, set Facebook-specific fields
-        Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
-        document.getElementById("fv").value = "facebook";
-        showButton.click(); // Trigger the form submission/filter
+    function submit() {
+      // Alpine commits input changes before generateReport reads its model.
+      Promise.resolve().then(function () {
+        requestAnimationFrame(function () { if (show.isConnected) show.click(); });
+      });
     }
-
-    // "F" button click handler
-    function handleFClick() {
-        handleClick(); // First, apply the default settings
-        // Then, set "f"-specific fields
-        Array.from(document.getElementById("fc").options).find(option => option.value === "extra_field_2").selected = true;
-        document.getElementById("fv").value = "f";
-        showButton.click(); // Trigger the form submission/filter
-    }
-
-    // --- Button Creation ---
-
-    // Create a new button element for Reset
-    let customButton = document.createElement("button");
-    customButton.type = "button";
-    customButton.className = "btn btn-default";
-    customButton.id = "custom_btn";
-    customButton.innerHTML = '<span class="glyphicon glyphicon-refresh"></span>&nbsp; Set Semula';
-    customButton.addEventListener('click', handleClick);
-
-    // Create WhatsApp button
-    let whatsAppButton = document.createElement("button");
-    whatsAppButton.type = "button";
-    whatsAppButton.className = "btn btn-success";
-    whatsAppButton.id = "whatsapp_btn";
-    whatsAppButton.style.marginLeft = "5px";
-    whatsAppButton.innerHTML = '<span class="glyphicon glyphicon-phone"></span>&nbsp; WhatsApp';
-    whatsAppButton.addEventListener('click', handleWhatsAppClick);
-
-    // Create Facebook button
-    let facebookButton = document.createElement("button");
-    facebookButton.type = "button";
-    facebookButton.className = "btn btn-primary";
-    facebookButton.id = "facebook_btn";
-    facebookButton.style.marginLeft = "5px";
-    facebookButton.innerHTML = '<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp; Facebook';
-    facebookButton.addEventListener('click', handleFacebookClick);
-
-    // Create F button
-    let fButton = document.createElement("button");
-    fButton.type = "button";
-    fButton.className = "btn btn-primary";
-    fButton.id = "f_btn";
-    fButton.style.marginLeft = "5px";
-    fButton.innerHTML = '<span class="glyphicon glyphicon-star-empty"></span>&nbsp; All';
-    fButton.addEventListener('click', handleFClick);
-
-    // --- Button Injection ---
-
-    // Select the parent div to inject the buttons into
-    let parentDiv = document.getElementsByClassName('col-md-12')[2];
-    let buttonContainer = document.createElement("div");
-    buttonContainer.style.display = "inline-block";
-
-    // Append all the new buttons to the container div
-    buttonContainer.appendChild(customButton);
-    buttonContainer.appendChild(whatsAppButton);
-    buttonContainer.appendChild(facebookButton);
-    buttonContainer.appendChild(fButton);
-
-    // Append the container to the parent div
-    parentDiv.appendChild(buttonContainer);
-
-    // --- Initial Load Logic ---
-
-    // On first load within a session, apply default filters and click the show button.
-    if (!sessionStorage.getItem('buttonClicked')) {
-        handleClick();
-        showButton.click();
-        sessionStorage.setItem('buttonClicked', 'true');
-    }
-
-    /**
-     * UPDATED: Fetches cost and ROAS data from the correct endpoint and updates the UI.
-     * This function checks form values to decide which API endpoint to use,
-     * fetches the data, and displays it in the new required format.
-     * @param {HTMLElement} totalParagraph - The paragraph element where the total is displayed.
-     * @param {string} totalAmountText - The text content containing the total amount.
-     */
-    async function fetchAndDisplayCost(totalParagraph, totalAmountText) {
-        try {
-            // 1. Determine endpoint, keyword, and labels based on form state
-            let endpointUrl = '';
-            let keyword = '';
-            let costLabel = '';
-
-            const fvValue = document.getElementById("fv").value;
-            const fcValue = document.getElementById("fc").value;
-
-            // Case 1: WhatsApp. Check if "Tambahan #2" is selected and input value is "WhatsApp".
-            if (fcValue === "extra_field_2" && fvValue === "WhatsApp") {
-                endpointUrl = 'https://webhook.site/check-cost-wa';
-                keyword = fvValue; // Keyword is "WhatsApp"
-                costLabel = 'JUMLAH KOS WA (+16.7%)';
-            } else {
-                // Case 2: Meta (Default).
-                endpointUrl = 'https://webhook.site/check-cost-meta';
-                costLabel = 'JUMLAH KOS META (+16.7%)';
-
-                // Determine the keyword for the Meta case
-                if ((fcValue === "invoice_number" || fcValue === "extra_field_3") && fvValue) {
-                    keyword = fvValue; // Keyword is the value from the input, e.g., "TMKM"
-                } else {
-                    keyword = ""; // Keyword is none if other conditions aren't met
-                }
-            }
-
-            // 2. Extract common data for the POST request
-            const hostname = window.location.hostname;
-            const startDate = document.getElementsByName('start_date')[0].value;
-            const endDate = document.getElementsByName('end_date')[0].value;
-            const totalAmount = totalAmountText.replace(/[^0-9.,]/g, '').replace(',', '');
-
-            // 3. Prepare the complete data payload
-            const postData = {
-                hostname: hostname,
-                keyword: keyword,
-                startdate: startDate,
-                enddate: endDate,
-                totalamount: totalAmount
-            };
-
-            // 4. Send the POST request to the determined endpoint
-            const response = await fetch(endpointUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData)
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const result = await response.json();
-
-            // 5. Process the response and update the UI with the new format
-            const costValue = result.cost_with_tax || result.spend_with_tax;
-            const roasValue = result.roas_spend_with_tax;
-            const percentageValue = result.percentage;
-            const fontColour = result.colour; // 'red' or 'green'
-
-            if (result.status === 'success' && costValue && roasValue && percentageValue && fontColour) {
-                // Create element for JUMLAH KOS
-                const costParagraph = document.createElement('p');
-                costParagraph.textContent = `${costLabel} = ${costValue}`;
-                costParagraph.style.fontWeight = 'bold';
-                costParagraph.style.color = 'blue';
-                costParagraph.style.fontSize = '18px';
-
-                // Create element for ROAS with colored value
-                const roasParagraph = document.createElement('p');
-                roasParagraph.innerHTML = `ROAS = <span style="color: ${fontColour};">${roasValue}</span>`;
-                roasParagraph.style.fontWeight = 'bold';
-                roasParagraph.style.color = 'blue';
-                roasParagraph.style.fontSize = '18px';
-
-                // Create element for PERCENTAGE ADS SPEND with colored value
-                const percentageParagraph = document.createElement('p');
-                percentageParagraph.innerHTML = `PERCENTAGE ADS SPEND = <span style="color: ${fontColour};">${percentageValue}</span>`;
-                percentageParagraph.style.fontWeight = 'bold';
-                percentageParagraph.style.color = 'blue';
-                percentageParagraph.style.fontSize = '18px';
-
-                // Insert the new paragraphs right after the total paragraph.
-                // They are inserted in reverse order to appear correctly on the page.
-                totalParagraph.insertAdjacentElement('afterend', percentageParagraph);
-                totalParagraph.insertAdjacentElement('afterend', roasParagraph);
-                totalParagraph.insertAdjacentElement('afterend', costParagraph);
-            } else {
-                console.error("Incomplete data received from API:", result);
-            }
-
-        } catch (error) {
-            console.error("Error fetching or processing cost data:", error);
-        }
-    }
-
-
-    // --- UI Update Logic ---
-
-    // Find the total amount element, display it prominently, and trigger the cost fetch.
-    const boldElements = document.getElementsByClassName('bold');
-    for (let el of boldElements) {
-        if (el.textContent.includes('JUMLAH NILAI KESELURUHAN')) {
-            const buttonContainer = document.querySelector('.col-md-12 > div');
-
-            if (buttonContainer) {
-                // Create a new paragraph element to display the total amount
-                const totalParagraph = document.createElement('p');
-                totalParagraph.textContent = el.textContent;
-
-                // Style the new total paragraph
-                totalParagraph.style.fontWeight = 'bold';
-                totalParagraph.style.color = 'blue';
-                totalParagraph.style.fontSize = '18px';
-                totalParagraph.style.marginTop = '20px';
-
-                // Insert the new paragraph after the button container
-                buttonContainer.insertAdjacentElement('afterend', totalParagraph);
-
-                // Call the function to fetch cost and update the UI
-                fetchAndDisplayCost(totalParagraph, el.textContent);
-
-                break; // Stop searching once the element is found and processed
-            }
-        }
-    }
-}
-
-// --- Other Page Adjustments ---
-
-// On the sales graph page, default the status to "confirmed".
-var dropdownSalesGraph = document.getElementById('sales_graph_status');
-if (dropdownSalesGraph) {
-    dropdownSalesGraph.value = 'confirmed';
-    var event = new Event('input', {
-        bubbles: true
+    [['Set Semula',null,'btn-outline-secondary'],['WhatsApp','WhatsApp','btn-success'],['Facebook','facebook','btn-primary'],['All','f','btn-primary']].forEach(function (item) {
+      var button = document.createElement('button'); button.type = 'button'; button.className = 'btn ' + item[2]; button.textContent = item[0];
+      button.addEventListener('click',function () {
+        defaults();
+        if (item[1] !== null) { set(column,'extra_field_2'); set(value,item[1]); submit(); }
+      });
+      tools.appendChild(button);
     });
-    dropdownSalesGraph.dispatchEvent(event);
-    sessionStorage.removeItem('buttonClicked');
-}
-
-// On the stats type links page, default the status to "confirmed".
-var checkStatsTypeLinks = document.getElementById('stats-type-links');
-if (checkStatsTypeLinks) {
-    var dropdownSalesStats = document.querySelector('#status.form-control');
-    dropdownSalesStats.value = 'confirmed';
-    var event = new Event('input', {
-        bubbles: true
+    var summary = document.createElement('div'); summary.id = 'mu-sales-summary';
+    summary.style.cssText = 'width:100%;font-weight:bold;color:blue;font-size:18px;margin-top:12px'; tools.after(summary);
+    var lastSignature = '', controller, requestNumber = 0;
+    function filters() { return JSON.stringify([status.value,limit.value,column.value,value.value,start.value,end.value]); }
+    var appliedFilters = filters();
+    function findTotal() {
+      return Array.from(document.querySelectorAll('body *')).find(function (el) {
+        return !el.closest('#mu-sales-summary') && /^JUMLAH NILAI KESELURUHAN\s*=/i.test(el.textContent.trim()) && el.textContent.trim().length < 160 && !Array.from(el.children).some(function (c) { return /JUMLAH NILAI KESELURUHAN/i.test(c.textContent); });
+      });
+    }
+    // Keep the webhook's original DD-MM-YYYY payload contract.
+    function apiDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value.split('-').reverse().join('-') : value; }
+    function snapshot(text) {
+      var match = text.match(/RM\s*([\d,]+(?:\.\d+)?)/i);
+      if (!match) return null;
+      return {hostname:location.hostname,keyword:column && ['invoice_number','extra_field_3'].includes(column.value) ? value.value : '',startdate:apiDate(start.value),enddate:apiDate(end.value),totalamount:match[1].replace(/,/g,'')};
+    }
+    function line(text, colour) { var p=document.createElement('p'); p.textContent=text; p.style.color=colour || 'blue'; summary.appendChild(p); }
+    async function refresh(force) {
+      if (filters() !== appliedFilters) return;
+      var total = findTotal(); if (!total) return;
+      var data = snapshot(total.textContent); if (!data) return;
+      var wa = column.value === 'extra_field_2' && value.value.toLowerCase() === 'whatsapp';
+      if (wa) data.keyword = value.value;
+      var signature = JSON.stringify([data,wa]);
+      if (!force && signature === lastSignature) return;
+      lastSignature = signature;
+      var number = ++requestNumber; if (controller) controller.abort(); controller = new AbortController();
+      summary.replaceChildren(); line(total.textContent.trim());
+      // The total can cover just the current page. Never treat it as all filtered sales.
+      if (limit.value !== 'all') { line('Pilih Semua dan jana laporan untuk kiraan kos/ROAS.'); return; }
+      try {
+        var response = await fetch('https://webhook.site/check-cost-' + (wa ? 'wa' : 'meta'), {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:controller.signal});
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        var result = await response.json(); if (number !== requestNumber) return;
+        var cost = result.cost_with_tax ?? result.spend_with_tax;
+        if (result.status !== 'success' || [cost,result.roas_spend_with_tax,result.percentage].some(function (v) { return v == null; })) throw new Error('Respons API tidak lengkap');
+        var colour = ['red','green'].includes(result.colour) ? result.colour : 'blue';
+        line('JUMLAH KOS ' + (wa?'WA':'META') + ' (+16.7%) = ' + cost);
+        line('ROAS = ' + result.roas_spend_with_tax,colour);
+        line('PERCENTAGE ADS SPEND = ' + result.percentage,colour);
+      } catch (error) { if (number === requestNumber && error.name !== 'AbortError') line('Kos/ROAS tidak tersedia: ' + error.message,'red'); }
+    }
+    // Report rendering may be asynchronous. Observe replacement totals without duplicating the toolbar.
+    var timer;
+    var summaryObserver = new MutationObserver(function (records) {
+      if (records.every(function (r) { return summary.contains(r.target) || r.target === summary; })) return;
+      clearTimeout(timer); timer = setTimeout(function () { refresh(false); },300);
     });
-    dropdownSalesStats.dispatchEvent(event);
-    sessionStorage.removeItem('buttonClicked');
-}
-
-
-// Created 6 Mac 2023
-// Updated 26 August 2023
-// Updated for dropdownSalesGraph on 13 October 2023
-// Updated for dropdownSalesStats on 4 August 2024
-// Updated for Jumlah Nilai Keseluruhan on 6 Mac 2025
-// Updated for WA & FB button on 15 Mac 2025
-// Updated for F button on 27 Mac 2025
-// Updated for Check Cost WA and Meta on 23 July 2025
-// Updated for New Cost Format on 25 August 2025
+    summaryObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
+    cleanup = function () {
+      summaryObserver.disconnect(); clearTimeout(timer);
+      ++requestNumber; if (controller) controller.abort();
+      tools.remove(); summary.remove();
+    };
+    refresh(false);
+  }
+  // A persistent lifecycle handles late extension injection and DOM replacement.
+  // Nothing is auto-submitted on page load; shortcut clicks apply today's defaults.
+  var lifecycle = new MutationObserver(ensure);
+  function start() {
+    lifecycle.observe(document.documentElement,{childList:true,subtree:true});
+    ensure();
+  }
+  if (document.documentElement) start();
+  else document.addEventListener('DOMContentLoaded',start,{once:true});
+  window.addEventListener('pageshow',ensure);
+  window.addEventListener('popstate',ensure);
+  document.addEventListener('alpine:initialized',function () {
+    initializedStats = new WeakSet();
+    ensure();
+  });
+  // Also detect URL changes made by a client-side router without replacing the form.
+  setInterval(function () {
+    if (mountedUrl !== location.href || !document.getElementById(rootId)) ensure();
+  },1000);
+  // Graph/statistics defaults remain independent of the report toolbar.
+  function stats() {
+    if (document.readyState === 'loading') return;
+    var controls = [document.getElementById('sales_graph_status')];
+    // Current OnPay uses a custom-select and no longer renders stats-type-links.
+    if (/^\/admin\/statistics\/sales\/?$/.test(location.pathname)) controls.push(document.querySelector('select#status[name="status"]'));
+    if (document.getElementById('stats-type-links')) controls.push(document.querySelector('#status.form-control'));
+    controls.forEach(function (el) {
+      if (!el || initializedStats.has(el) || !Array.from(el.options).some(function (option) { return option.value === 'confirmed'; })) return;
+      initializedStats.add(el);
+      set(el,'confirmed');
+      try { sessionStorage.removeItem('buttonClicked'); } catch (_) {}
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',stats,{once:true}); else stats();
+})();
